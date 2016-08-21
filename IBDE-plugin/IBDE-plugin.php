@@ -35,3 +35,5 @@ require_once ($PLUGINPATH . 'opengraph.php');
 require_once ($PLUGINPATH . 'weather.php');
 
 require_once ($PLUGINPATH . 'cron.php');
+
+require_once ($PLUGINPATH . 'news.php');
