@@ -31,4 +31,6 @@ ratings:
   - "**.php"
   - "**.py"
   - "**.rb"
-exclude_paths: []
+exclude_paths: 
+  - "IBDE-theme/bower_components/"
+  - "IBDE-plugin/plugin-activation/"
