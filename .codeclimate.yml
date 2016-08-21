@@ -20,7 +20,22 @@ engines:
   phpcodesniffer:
     enabled: true
     config:
-      standard: "PSR1,PSR2,WordPress"
+      standard: "WordPress"
+    checks:
+      PEAR Functions FunctionCallSignature SpaceAfterOpenBracket:
+        enabled: false
+      WordPress WhiteSpace ControlStructureSpacing NoSpaceAfterOpenParenthesis:
+        enabled: false
+      Squiz Strings DoubleQuoteUsage NotRequired:
+        enabled: false
+      Squiz Commenting InlineComment InvalidEndChar:
+        enabled: false
+      Squiz Commenting InlineComment NotCapital:
+        enabled: false
+      Generic WhiteSpace DisallowTabIndent NonIndentTabsUsed:
+        enabled: false
+      Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
+        enabled: false
 ratings:
   paths:
   - "**.sass"
