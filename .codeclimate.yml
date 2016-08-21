@@ -24,7 +24,11 @@ engines:
     checks:
       PEAR Functions FunctionCallSignature SpaceAfterOpenBracket:
         enabled: false
+      PEAR Functions FunctionCallSignature SpaceBeforeOpenBracket:
+        enabled: false
       WordPress WhiteSpace ControlStructureSpacing NoSpaceAfterOpenParenthesis:
+        enabled: false
+      WordPress WhiteSpace ControlStructureSpacing NoSpaceBeforeCloseParenthesis:
         enabled: false
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
@@ -33,6 +37,8 @@ engines:
       Squiz Commenting InlineComment NotCapital:
         enabled: false
       Generic WhiteSpace DisallowTabIndent NonIndentTabsUsed:
+        enabled: false
+      Generic WhiteSpace DisallowSpaceIndent SpacesUsed:
         enabled: false
       Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
         enabled: false
