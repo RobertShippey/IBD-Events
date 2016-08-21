@@ -2,8 +2,7 @@
 
 // Remove Dashboard Clutter
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
-function remove_dashboard_widgets()
-{
+function remove_dashboard_widgets() {
   global $wp_meta_boxes;
   
   unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
@@ -19,18 +18,12 @@ function remove_dashboard_widgets()
 
 
 add_action('wp_dashboard_setup', 'ibde_dashboard_widgets');
-function ibde_dashboard_widgets()
-{
+function ibde_dashboard_widgets() {
 
   $user = wp_get_current_user();
   if ( in_array( 'administrator', (array) $user->roles ) ) {
     
    global $wp_meta_boxes;
-
-     // remove_meta_box( 'ibde_forecast_widget' , 'dashboard' , 'normal' ); 
-     // remove_meta_box( 'ibde_forecast_widget' , 'dashboard' , 'side' ); 
-     // remove_meta_box( 'ibde_uptime_widget' , 'dashboard' , 'normal' ); 
-     //  remove_meta_box( 'ibde_uptime_widget' , 'dashboard' , 'side' ); 
 
    add_meta_box('ibde_forecast_widget', 'Forecast API', 'ibde_forecast_widget', 'dashboard', 'side', 'high');
    add_meta_box('ibde_uptime_widget', 'Uptime Robot', 'ibde_uptimerobot_widget', 'dashboard', 'side', 'high');
@@ -38,8 +31,7 @@ function ibde_dashboard_widgets()
 
  
 }
-function ibde_forecast_widget()
-{
+function ibde_forecast_widget() {
   $API_Calls = get_transient( 'forecast_API_calls' );
 
   if (! $API_Calls) {
@@ -82,9 +74,9 @@ function ibde_forecast_widget()
 
 }
 
-function ibde_uptimerobot_widget()
-{
+function ibde_uptimerobot_widget() {
 
+  global $_KEYS;
 	$api_key = $_KEYS['uptime_robot']['ibd-events.com'];
 
 	?>
@@ -144,8 +136,6 @@ function ibde_uptimerobot_widget()
    
  }
 </script>
-
-
 
 <script src="https://api.uptimerobot.com/getMonitors?apiKey=<?php echo $api_key; ?>&responseTimes=1&responseTimesAverage=15&customUptimeRatio=1-7-30-365&format=json" async></script> 
 <?php

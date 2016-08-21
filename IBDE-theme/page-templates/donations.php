@@ -8,7 +8,7 @@ get_header();
 
  // Set your secret key: remember to change this to your live secret key in production
 // See your keys here https://dashboard.stripe.com/account/apikeys
-
+global $_KEYS;
 //\Stripe\Stripe::setApiKey($_KEYS['stripe']['test']['secret']); //Test Secret Key
 \Stripe\Stripe::setApiKey($_KEYS['stripe']['live']['secret']);  // Live Secret Key
 
@@ -137,7 +137,7 @@ get_currentuserinfo();
       <script>
         var handler = StripeCheckout.configure({
           key: '<?php echo $pub_key; ?>',
-          image: '//dev.ibd-events.com/wp-content/uploads/2015/11/cropped-ibd-red.png',
+          image: '//ibd-events.com/wp-content/uploads/2015/11/cropped-ibd-red.png',
           locale: 'auto',
           token: function(token) {
             var $id = $('<input type=hidden name=stripeToken />').val(token.id);

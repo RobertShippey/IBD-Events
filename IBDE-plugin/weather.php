@@ -27,6 +27,7 @@ function refresh_weather_data ($postID) {
   $start_date = ibde_get_start_date();
   $weatherDate = $start_date->format('Y-m-d\TH:i:s');
 
+  global $_KEYS;
 
   $forecastFormat = "https://api.forecast.io/forecast/".$_KEYS['forecast.io']."/%s,%s,%s?units=uk2";
   $forecaseURL = sprintf($forecastFormat, $location['lat'], $location['lng'], $weatherDate);
