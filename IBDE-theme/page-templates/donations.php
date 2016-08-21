@@ -9,8 +9,8 @@ get_header();
  // Set your secret key: remember to change this to your live secret key in production
 // See your keys here https://dashboard.stripe.com/account/apikeys
 
-//\Stripe\Stripe::setApiKey("sk_test_cfsiZmk0p7hbhPaMi5FG47eT"); //Test Secret Key
-\Stripe\Stripe::setApiKey("sk_live_fHzVenYrFIWcvgiqEWHT0dnj");  // Live Secret Key
+//\Stripe\Stripe::setApiKey($_KEYS['stripe']['test']['secret']); //Test Secret Key
+\Stripe\Stripe::setApiKey($_KEYS['stripe']['live']['secret']);  // Live Secret Key
 
 // Get the credit card details submitted by the form
  if (isset($_POST['stripeToken'])) {
@@ -101,10 +101,10 @@ get_header();
 }
 
  // Test Publishable key
-//$pub_key = "pk_test_nlPNsaPkFQXXXhBMIJKsAMWG";
+//$pub_key = $_KEYS['stripe']['test']['publishable'];
  
  // Live Publishable Key
- $pub_key = "pk_live_1sR8cpQ3fU2deN1NJsOt0kYv";
+ $pub_key = $_KEYS['stripe']['live']['publishable'];
 
 global $current_user;
 get_currentuserinfo();
