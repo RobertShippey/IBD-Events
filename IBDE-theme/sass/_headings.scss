@@ -1,0 +1,94 @@
+/* -------------------------------------------------- */
+// Headings
+/* -------------------------------------------------- */
+
+#{headings()} {
+    line-height: initial;
+      margin-top: 0;
+    a {}
+    a:hover {}
+    small {
+        font-weight: inherit;
+    }
+}
+
+.page-header {
+    margin-top: 0;
+    border-bottom: 1px solid $text-color-tint-90;
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-weight: 900;
+}
+
+h2 {
+    font-weight: 800;
+}
+
+h3 {
+    font-weight: 700;
+}
+
+h4 {
+    font-weight: 600;
+}
+
+h5 {
+    font-weight: 500;
+}
+
+h6 {
+    font-weight: 500;
+}
+
+.site-title {
+    line-height: 20px;
+}
+
+/* -------------------------------------------------- */
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    h1 {font-size:30px;}
+    h2 {font-size:24px;}
+    h3 {font-size:18px;}
+    h4 {font-size:14px;}
+    h5 {font-size:12px;}
+    h6 {font-size:12px;}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+    h1 {}
+    h2 {}
+    h3 {}
+    h4 {}
+    h5 {}
+    h6 {}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 940px) {
+    h1 {}
+    h2 {}
+    h3 {}
+    h4 {}
+    h5 {}
+    h6 {}
+}
+
+/* Default: 940px and up  */
+
+/* Large desktop */
+@media (min-width: 1210px) {
+    h1 {}
+    h2 {}
+    h3 {}
+    h4 {}
+    h5 {}
+    h6 {}
+}
+
+/* -------------------------------------------------- */

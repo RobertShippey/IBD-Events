@@ -1,0 +1,38 @@
+/* -------------------------------------------------- */
+// Buttons
+/* -------------------------------------------------- */
+.btn {
+    border: 0;
+}
+
+.btn-default {
+    @include contrasted($text-color);
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    @include contrasted($text-color-tint-20);
+}
+
+.btn-primary {
+   @include contrasted($primary-color);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+   @include contrasted($primary-color-tint-20);
+}
+
+.btn-secondary {
+   @include contrasted($secondary-color);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open .dropdown-toggle.btn-secondary {
+   @include contrasted($secondary-color-tint-20);
+}
+
+.btn-tertiary {
+   @include contrasted($tertiary-color);
+}
+
+.btn-tertiary:hover, .btn-tertiary:focus, .btn-tertiary:active, .btn-tertiary.active, .open .dropdown-toggle.btn-tertiary {
+   @include contrasted($tertiary-color-tint-20);
+}

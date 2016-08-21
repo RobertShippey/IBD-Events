@@ -1,0 +1,43 @@
+/* -------------------------------------------------- */
+// Panels
+/* -------------------------------------------------- */
+.panel {
+    background-color: transparent;
+}
+
+
+.panel-default {
+    border-color: $text-color;
+}
+
+.panel-default>.panel-heading {
+    @include contrasted($text-color);
+    border-color: $text-color;
+}
+
+.panel-primary {
+    border-color: $primary-color;
+}
+
+.panel-primary>.panel-heading {
+    @include contrasted($primary-color);
+    border-color: $primary-color;
+}
+
+.panel-secondary {
+    border-color: $secondary-color;
+}
+
+.panel-secondary>.panel-heading {
+    @include contrasted($secondary-color);
+    border-color: $secondary-color;
+}
+
+.panel-tertiary {
+    border-color: $tertiary-color;
+}
+
+.panel-tertiary>.panel-heading {
+    @include contrasted($tertiary-color);
+    border-color: $tertiary-color;
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   viewBox="0 0 499.99998 499.99998"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="ibde.svg"
+   inkscape:export-filename="/Users/robertshippey/Desktop/ibd-red.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="87.5"
+     inkscape:cy="250"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:showpageshadow="true"
+     showborder="true"
+     units="px"
+     inkscape:window-width="1280"
+     inkscape:window-height="703"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36209)">
+    <rect
+       style="opacity:1;fill:#bb5544;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.89999998;stroke-miterlimit:4.80000019;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3336"
+       width="499.99994"
+       height="499.99994"
+       x="0"
+       y="552.36212" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4138"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Ruda;font-style:normal;font-weight:bold;font-size:12.5px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:'Ruda Bold';font-stretch:normal;font-variant:normal;"><flowRegion
+         id="flowRegion4140"><rect
+           id="rect4142"
+           width="502.87909"
+           height="488.48367"
+           x="-0.9596929"
+           y="3.8387716"
+           style="-inkscape-font-specification:'Ruda Bold';font-family:Ruda;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;" /></flowRegion><flowPara
+         id="flowPara4144" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:'Rockwell Light';-inkscape-font-specification:'Rockwell Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-94.049904"
+       y="713.59052"
+       id="text4146"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4148"
+         x="-94.049904"
+         y="713.59052" /></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4142"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.48685455px;line-height:125%;font-family:'Rockwell Light';-inkscape-font-specification:'Rockwell Light';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(31.693735,55.7444)"><flowRegion
+         id="flowRegion4144"><rect
+           id="rect4146"
+           width="2743.1013"
+           height="1644.157"
+           x="-1155.8481"
+           y="616.65106"
+           style="fill:#ffffff" /></flowRegion><flowPara
+         id="flowPara4148"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Ruda;-inkscape-font-specification:'Ruda Heavy';text-align:center;text-anchor:middle;fill:#ffffff">IBD </flowPara><flowPara
+         id="flowPara4150"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Ruda;-inkscape-font-specification:'Ruda Heavy';text-align:center;text-anchor:middle;fill:#ffffff">Events</flowPara></flowRoot>  </g>
+</svg>

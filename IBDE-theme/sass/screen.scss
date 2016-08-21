@@ -1,0 +1,287 @@
+@import "compass";
+@import "compass/css3";
+@import "compass/css3/images";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+
+@import "compass/utilities/color/contrast";
+
+//@import url(https://fonts.googleapis.com/css?family=Ruda:900);
+//@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+@import "wordpress-core";
+@import "colors-setup";
+
+@import "base";
+@import "navs";
+@import "buttons";
+@import "labels";
+@import "panels";
+@import "headings";
+
+
+/********************************************************************/
+/* Custom Responsive if needed */
+/********************************************************************/
+
+/* Landscape phones and down */
+@media (max-width: 480px) {}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 940px) {}
+
+/* Default: 940px and up  */
+
+/* Large desktop */
+@media (min-width: 1210px) {}
+
+/********************************************************************/
+/* Body Setup in general */
+/********************************************************************/
+body {
+    @include contrasted($bg-color);
+}
+
+/********************************************************************/
+/* Links in general */
+/********************************************************************/
+a {
+    color: inherit;
+    font-weight: bold;
+}
+
+a:hover, a:focus {
+    color: inherit;
+}
+
+.content a {
+    font-weight: bold;
+}
+
+/********************************************************************/
+/* Font Families */
+/********************************************************************/
+#{headings()}, .navbar, .nav-pills {
+    font-family: 'Ruda', Helvetica, sans-serif;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+// .wf-loading {
+// #{headings()}, p {
+//     opacity: 0.5;
+// }
+// }
+// .wf-active, .wf-inactive {
+//     #{headings()}, p {
+//     opacity: 1;
+// }
+// }
+
+/********************************************************************/
+/* Sections */
+/********************************************************************/
+
+.wrap {
+    &.header {
+
+    }
+    &.navigation {
+        background-color:$primary-color;
+    }
+    &.quote {
+        background-image: url('../crowd.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    &.central {}
+    &.feature-boxes {
+        background-color:$primary-color;
+    }
+    &.signup {}
+    &.footer {
+        @include contrasted(#222);
+        a {
+            font-weight: normal;
+        }
+    }
+    &.baseline {}
+}
+
+.container, .container-fluid {
+    
+    &.header {
+        padding-top: 30px;
+        background-color: $pg-color;
+    }
+    &.quote {
+        padding-bottom: 30px;
+    }
+    &.central {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        background-color: $pg-color;
+    }
+    &.feature-boxes {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        
+    }
+    &.signup {
+        background-color: $pg-color;
+    }
+    &.footer {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        #{headings()} {
+            color: inherit;
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 15px;
+        }
+    }
+
+    &.baseline {
+        background-color: $pg-color;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+.social-share .col-sm-12 {
+    
+}
+}
+
+#single-map, #archive-map {
+    height: 250px;
+    a {
+        font-weight: normal;
+    }
+}
+
+canvas#weatherIcon {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+blockquote.content {
+    display: inline-block;
+}
+
+#single-map {
+    height: 250px;
+}
+
+.social-share .share-button {
+   height: 25px!important;
+max-width: 70px!important;
+}
+
+.small-flag {
+    height:2em;
+    width:auto;
+}
+
+.btn img.category-icon {
+    height: 1.2em;
+    margin-bottom: 2px;
+}
+
+img.favico {
+    // background-color: #222;
+   // border: 1px solid rgba(34, 34, 34, 0.5);
+    border-radius: 3px;
+}
+
+
+.featured-event-block {
+    @include filter-gradient(#ffffff, #f2f2f2, horizontal); // IE6-9 fallback on horizontal gradient
+    @include background-image(linear-gradient(left top, #ffffff 0%,#f2f2f2 70%));
+    @include border-radius(5px);
+
+    height: 100%;
+    padding: 15px;
+}
+
+img.featured-event-image {
+    width: 80px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.button-list .btn-secondary {
+    margin-bottom: 4px;
+}
+
+.share-button iframe {
+    border:none;
+    overflow:hidden;
+}
+
+.textarea-wrap textarea {
+    height: 75px!important;
+}
+
+/* ---------------------
+   External link block
+----------------------*/
+
+#external-link {
+    padding: 7px;
+    background-color: #222222;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+
+    .favico-box {
+
+        display: block;
+        position: relative;
+        height: 60px;
+        width: 60px;
+        float:left; 
+
+        .fav-blur {
+            width: 50px;
+
+            filter: blur(3px);
+-moz-filter: blur(3px);
+-o-filter: blur(3px);
+-ms-filter: blur(3px);
+filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='3'%20/></filter></svg>#blur");
+filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3'); 
+-webkit-filter: blur(3px);
+
+            opacity: 0.75;
+            position: absolute;
+                border-radius: 5px;
+        }
+
+        .fav-small {
+            position: absolute;
+            left: 17px;
+            top: 17px;
+            -webkit-filter: drop-shadow(0px 0px 3px white);
+            filter: drop-shadow(0px 0px 3px white);
+        }
+    }
+
+    p {
+        color: white;
+        font-weight: 300;
+        margin: 0;
+        padding: 5px;
+        a {
+            letter-spacing: 0.02em;
+        }
+    }
+
+}

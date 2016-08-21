@@ -1,0 +1,18 @@
+/* -------------------------------------------------- */
+// Labels
+/* -------------------------------------------------- */
+.label-default {
+    @include contrasted($text-color);
+}
+
+.label-primary {
+    @include contrasted($primary-color);
+}
+
+.label-secondary {
+    @include contrasted($secondary-color);
+}
+
+.label-tertiary {
+    @include contrasted($tertiary-color);
+}

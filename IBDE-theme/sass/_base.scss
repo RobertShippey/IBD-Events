@@ -1,0 +1,278 @@
+/* -------------------------------------------------- */
+// Base
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+//  Custom Responsive Fixes if needed
+/* -------------------------------------------------- */
+@media (max-width: 480px) {
+    .img-responsive {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open .dropdown-menu .dropdown-header {
+        padding: 10px 15px 10px 30px;
+    }
+    .navbar-nav {
+        margin: 0 -15px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 940px) {}
+
+@media (min-width: 1210px) {}
+
+/* -------------------------------------------------- */
+// Global Options Hooks
+/* -------------------------------------------------- */
+
+span {
+    &.global-name {}
+    &.global-phone {}
+    &.global-mobile {}
+    &.global-fax {}
+    &.global-email {}
+    &.global-address {}
+    &.global-vat {}
+    &.global-company-no {}
+    &.global-twitter {}
+    &.global-facebook {}
+    &.global-googleplus {}
+    &.global-linkedin {}
+}
+
+/* -------------------------------------------------- */
+// Admin WYSIWYG Overrides
+/* -------------------------------------------------- */
+
+body#tinymce {
+    margin: 0;
+    padding: 15px;
+    background: white;
+    * {
+        color: black;
+    }
+    a {
+        text-decoration: underline;
+    }
+}
+
+body.motopress-body {
+    * {
+        color: black;
+    }
+    a {
+        text-decoration: underline;
+    }
+}
+
+/* -------------------------------------------------- */
+// WP Admin Bar Fix for fixed top navbar if needed
+/* -------------------------------------------------- */
+
+/*
+body.admin-bar #wpadminbar {
+    position: fixed;
+    top: 28px;
+    z-index: 1000;
+    height: 40px;
+}
+*/
+
+/* -------------------------------------------------- */
+// Responsive Embeddable items
+/* -------------------------------------------------- */
+
+iframe, object, embed {
+    width: 100% !important;
+    border: none;
+}
+
+.iframe-responsive iframe {
+    width: 100% !important;
+}
+
+.wp-video {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.wp-video-shortcode {
+    max-width: 100%;
+}
+
+.wp-audio-shortcode {
+    max-width: 100%;
+}
+
+/* -------------------------------------------------- */
+// Font Smoothing & Kerning
+/* -------------------------------------------------- */
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+}
+
+/* -------------------------------------------------- */
+// IE8 Responsive Image Fixes
+/* -------------------------------------------------- */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media \0screen {
+    img {
+        width: auto;
+    }
+}
+
+/* -------------------------------------------------- */
+// Nav Styling
+/* -------------------------------------------------- */
+
+.navbar {
+    margin: 0;
+}
+
+.navbar-default {
+    border: 0;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.dropdown-menu>li>a {
+    padding: 10px 15px;
+    line-height: 2;
+}
+
+.nav-stacked>li+li {
+    margin-top: 6px;
+}
+
+/* -------------------------------------------------- */
+// Useful classes
+/* -------------------------------------------------- */
+
+$unit: 15px;
+$unit-2x: $unit * 2;
+$unit-3x: $unit * 3;
+$unit-4x: $unit * 4;
+
+hr {
+    border-top: 1px solid $secondary-color-tint-75;
+}
+
+.hr + .hr {
+    margin-top: $unit;
+    padding-top: $unit;
+    border-top: 1px solid $secondary-color-tint-75;
+}
+
+.space + .space {
+    margin-top: $unit;
+    padding-top: $unit;
+}
+
+.space-above {
+    margin-top: $unit;
+}
+
+.space-above-2x {
+    margin-top: $unit-2x;
+}
+
+.space-below {
+    margin-bottom: $unit;
+}
+
+.space-below-2x {
+    margin-bottom: $unit-2x;
+}
+
+.flush {
+    margin: 0;
+}
+
+img.flush {
+    width: 100%;
+    height: auto;
+}
+
+.flushtop {
+    margin-top: 0;
+}
+
+.kill-padding {
+    padding: 0;
+}
+
+.padding {
+    padding: $unit;
+}
+
+/* -------------------------------------------------- */
+//  Useful Responsive Classes
+/* -------------------------------------------------- */
+.xs-text-left {
+    text-align: left;
+}
+
+.xs-text-center {
+    text-align: center;
+}
+
+.xs-text-right {
+    text-align: right;
+}
+
+@media (min-width: 768px) {
+    .sm-text-left {
+        text-align: left;
+    }
+    .sm-text-center {
+        text-align: center;
+    }
+    .sm-text-right {
+        text-align: right;
+    }
+}
+
+@media (min-width: 992px) {
+    .md-text-left {
+        text-align: left;
+    }
+    .md-text-center {
+        text-align: center;
+    }
+    .md-text-right {
+        text-align: right;
+    }
+}
+
+@media (min-width: 1200px) {
+    .lg-text-left {
+        text-align: left;
+    }
+    .lg-text-center {
+        text-align: center;
+    }
+    .lg-text-right {
+        text-align: right;
+    }
+}

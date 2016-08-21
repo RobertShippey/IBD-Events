@@ -1,0 +1,56 @@
+/* -------------------------------------------------- */
+// Navigations
+/* -------------------------------------------------- */
+.navbar-default {
+	@include contrasted($primary-color);
+}
+
+.navbar-default .navbar-nav>li>a {
+	@include contrasted($primary-color);
+	font-weight: normal;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+	@include contrasted($secondary-color);
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+	@include contrasted($secondary-color);
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+	@include contrasted($primary-color-tint-75);
+}
+
+.dropdown-menu {
+	@include contrasted($primary-color-tint-90);
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
+	@include contrasted($secondary-color);
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	@include contrasted($primary-color-tint-50);
+}
+
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu>.active>a, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus {
+		@include contrasted($secondary-color);
+	}
+
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+		color: white;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus, .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+		@include contrasted($primary-color-tint-75);
+	}
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #ddd;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+	background-color: #222;
+}
