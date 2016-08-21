@@ -1,14 +1,10 @@
 ---
 engines:
-  csslint:
-    enabled: true
   duplication:
     enabled: true
     config:
       languages:
-      - ruby
       - javascript
-      - python
       - php
   eslint:
     enabled: true
@@ -19,21 +15,21 @@ engines:
     checks:
       Controversial/CamelCaseVariableName:
         enabled: false
-  rubocop:
+      CleanCode/ElseExpression:
+        enabled: false
+  phpcodesniffer:
     enabled: true
+    config:
+      standard: "PSR1,PSR2,WordPress"
 ratings:
   paths:
   - "**.sass"
-  - "**.inc"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
   - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths: 
   - "IBDE-plugin/plugin-activation/"
   - "IBDE-theme/bower_components/"
   - "IBDE-theme/config.rb"
-  - "*.min.js"
-  - "*.png"
+  - "**.min.js"
+  - "**.png"
+  - "**.css"
