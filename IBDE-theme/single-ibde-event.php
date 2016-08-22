@@ -59,7 +59,7 @@ $event = new IBDEvent($post->ID);
 
 							<?php while ( have_posts() ) : the_post();
 
-							if($post->post_content != "") {?>
+							if ($post->post_content != "") { ?>
 								<blockquote class="content"><?php the_content(); ?></blockquote>
 								<?php } endwhile; ?>
 
@@ -67,8 +67,8 @@ $event = new IBDEvent($post->ID);
 
 								<?php if ($event->has_end_date()) { ?>
 									<script>
-										var startTime = moment(<?php echo json_encode($event->formatted_start_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
-										var endTime = moment(<?php echo json_encode($event->formatted_end_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
+										var startTime = moment(<?php echo wp_json_encode($event->formatted_start_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
+										var endTime = moment(<?php echo wp_json_encode($event->formatted_end_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
 
 						//var timeRange = moment.twix(startTime, endTime, {allDay: true});
 										var timeRange = moment.twix(startTime, endTime);
@@ -85,12 +85,12 @@ $event = new IBDEvent($post->ID);
 
 
 									<?php $venue = get_field('venue'); 
-									if($venue) { ?>
+									if ($venue) { ?>
 										<h3><?php echo $venue; ?></h3>
 										<?php } ?>
 
 										<?php $location = get_field('location'); 
-										if($location) { ?>
+										if ($location) { ?>
 											<address>
 												<?php 	
 												$country_code = get_post_meta( $post->ID, 'country_code', true );
@@ -123,7 +123,6 @@ $event = new IBDEvent($post->ID);
 											echo '<a href="' . get_term_link( $term->term_id, 'ibde-category' ) 
 											. '" title="' . sprintf('View all %s events', $term->name ) 
 											. '" class="btn btn-secondary">' 
-				//. '<img class="category-icon" src="http://dev.ibd-events.com/wp-content/themes/IBDE-theme/g9175.png"> '
 											. $term->name . '</a> ';
 										}
 										echo '</div>';
@@ -144,9 +143,9 @@ $event = new IBDEvent($post->ID);
 
 									<p><a href="<?php the_permalink(); echo "ical/"; ?>" class="btn btn-primary btn-sm" download><i class="fa fa-calendar-plus-o"></i> Add to calendar</a></p>
 
-									<?php if(get_field('external_link')) {
+									<?php if (get_field('external_link')) {
 										$external_url = get_field('external_link');
-										$external_hostname = parse_url($external_url, PHP_URL_HOST); 
+										$external_hostname = wp_parse_url($external_url, PHP_URL_HOST); 
 										$external_sitename = str_replace("www.", "", $external_hostname); ?>
 
 										<div id="external-link">
@@ -158,9 +157,9 @@ $event = new IBDEvent($post->ID);
 										</div>
 										<?php } ?>
 
-										<?php if(get_field('buy_tickets')) {
+										<?php if (get_field('buy_tickets')) {
 											$buy_url = get_field('buy_tickets');
-											$buy_hostname = parse_url($buy_url, PHP_URL_HOST); 
+											$buy_hostname = wp_parse_url($buy_url, PHP_URL_HOST); 
 											$buy_sitename = str_replace("www.", "", $buy_hostname); ?>
 
 											<p><img class="favico" height="16" width="16" src="https://www.google.com/s2/favicons?domain=<?php echo $buy_hostname; ?>" alt="<?php echo $buy_sitename; ?> favicon"> 
@@ -168,15 +167,15 @@ $event = new IBDEvent($post->ID);
 											</p>
 											<?php } ?>
 
-											<?php if(get_field('hashtag')) { ?>
+											<?php if (get_field('hashtag')) { ?>
 												<pre><a href="https://twitter.com/hashtag/<?php the_field('hashtag'); ?>" target="_blank">#<?php the_field('hashtag'); ?></a></pre>
 												<?php } ?>
 
 
 												<?php
 
-												$weatherData = ibde_get_weather($post->ID);
-						if (isset($weatherData['summary']) && $weatherData['summary'] !== NULL) { // only show weather if there is a 'summary'
+												$weather_data = ibde_get_weather($post->ID);
+						if (isset($weather_data['summary']) && $weather_data['summary'] !== null) { // only show weather if there is a 'summary'
 						?>
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -184,24 +183,24 @@ $event = new IBDEvent($post->ID);
 							</div>
 							<div class="panel-body">
 								<canvas id="weatherIcon" class="pull-right" width="100" height="100"></canvas>
-								<h3><?php echo $weatherData['summary']; ?></h3>
+								<h3><?php echo $weather_data['summary']; ?></h3>
 								<p><?php
 
-									if ($weatherData['precipIntensity'] !== NULL && round($weatherData['precipIntensity'], 1) > 0) {
-										if($weatherData['precipProbability'] !== NULL) {
-											echo "There is a " . ($weatherData['precipProbability'] * 100) . "% chance it will " . $weatherData['precipType'] . " about " . round($weatherData['precipIntensity'], 1) . " inches. ";
+									if ($weather_data['precipIntensity'] !== null && round($weather_data['precipIntensity'], 1) > 0) {
+										if ($weather_data['precipProbability'] !== null) {
+											echo "There is a " . ($weather_data['precipProbability'] * 100) . "% chance it will " . $weather_data['precipType'] . " about " . round($weather_data['precipIntensity'], 1) . " inches. ";
 										} else {
-											echo "It could " . $weatherData['precipType'] . " about " . $weatherData['precipIntensity'] . " inches. ";
+											echo "It could " . $weather_data['precipType'] . " about " . $weather_data['precipIntensity'] . " inches. ";
 										}
 									} 
-									if (round($weatherData['temperature']) == round($weatherData['apparentTemperature'])) {
-										echo "Temperature will be " . round($weatherData['temperature']) . "ºC. ";
+									if (round($weather_data['temperature']) == round($weather_data['apparentTemperature'])) {
+										echo "Temperature will be " . round($weather_data['temperature']) . "ºC. ";
 									} else {
-										echo "Temperature will be " . round($weatherData['temperature']) . "ºC, but feel like " . round($weatherData['apparentTemperature']) . "ºC. ";
+										echo "Temperature will be " . round($weather_data['temperature']) . "ºC, but feel like " . round($weather_data['apparentTemperature']) . "ºC. ";
 									}
-									if($weatherData['windSpeed'] > 0) {
-										$direction = cardinal_direction($weatherData['windBearing']);
-										echo "Wind will be " . round($weatherData['windSpeed']) . "mph from the " . strtolower($direction['full_name']) . ". ";
+									if ($weather_data['windSpeed'] > 0) {
+										$direction = cardinal_direction($weather_data['windBearing']);
+										echo "Wind will be " . round($weather_data['windSpeed']) . "mph from the " . strtolower($direction['full_name']) . ". ";
 									}
 									?></p>
 								</div>
@@ -209,14 +208,14 @@ $event = new IBDEvent($post->ID);
 
 							<script>
 								var skycons = new Skycons({"monochrome": false});
-								skycons.add("weatherIcon", <?php echo json_encode($weatherData['icon']); ?>);
+								skycons.add("weatherIcon", <?php echo wp_json_encode($weather_data['icon']); ?>);
 								skycons.play();
 							</script>
 							
 							<?php  }  ?>
 
 							<?php if (get_field('online_event')) {
-								$zones = array (
+								$zones = array(
 									"Eastern Time" => "America/New_York",
 									"Pacific Time" => "America/Los_Angeles",
 									"Sydney" => "Australia/Sydney",
@@ -244,7 +243,7 @@ $event = new IBDEvent($post->ID);
 								<div class="col-xs-4 col-sm-12 col-md-4 col-xl-4">
 									<div class="share-button">
 										<a href="https://twitter.com/share" class="twitter-share-button" data-via="IBD_Events">Tweet</a>
-										<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+										<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if (!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 									</div>
 								</div>
 								<div class="col-xs-4 col-sm-12 col-md-4 col-xl-4">
@@ -276,7 +275,7 @@ $event = new IBDEvent($post->ID);
 
 
 			<?php $location = get_field('location'); 
-			if($location) { ?>
+			if ($location) { ?>
 				<div class="wrap">
 					<div id="single-map" class="space-below"></div> 
 				</div>
@@ -292,7 +291,7 @@ $event = new IBDEvent($post->ID);
 					); ?>
 				<script>
 					function initMap() {
-						var latlng = <?php echo json_encode($pos); ?>;
+						var latlng = <?php echo wp_json_encode($pos); ?>;
 						var map = new google.maps.Map(document.getElementById('single-map'), {
 							scrollwheel: false,
 							zoom: 15,
@@ -300,12 +299,12 @@ $event = new IBDEvent($post->ID);
 						});
 
 						var infowindow = new google.maps.InfoWindow({
-							content: <?php echo json_encode(get_the_title()); ?>
+							content: <?php echo wp_json_encode(get_the_title()); ?>
 						});
 						var marker = new google.maps.Marker({
 							position: latlng,
 							map: map,
-							title: <?php echo json_encode(get_the_title()); ?>
+							title: <?php echo wp_json_encode(get_the_title()); ?>
 						});
 						marker.addListener('click', function() {
 							infowindow.open(marker.get('map'), marker);
@@ -332,7 +331,7 @@ $event = new IBDEvent($post->ID);
 										<h4 class="modal-title" id="myModalLabel">Report: <?php the_title(); ?></h4>
 									</div>
 									<div class="modal-body">
-										<?php if( function_exists( 'ninja_forms_display_form' ) ){ ninja_forms_display_form( 5 ); } ?>
+										<?php if ( function_exists( 'ninja_forms_display_form' ) ){ ninja_forms_display_form( 5 ); } ?>
 									</div>
 								</div>
 							</div>
@@ -344,8 +343,6 @@ $event = new IBDEvent($post->ID);
 
 						if ( ! empty( $location_terms ) && ! is_wp_error( $location_terms ) ) {
 
-						//array_reverse($location_terms);
-
 							$bread1 = array();
 							$bread1['@context'] = "http://schema.org";
 							$bread1['@type'] = "BreadcrumbList";
@@ -353,29 +350,29 @@ $event = new IBDEvent($post->ID);
 							$crumbs1 = array();
 							$position = 1;
 
-							$crumbs1[] = array (
+							$crumbs1[] = array(
 								"@type" => "ListItem",
 								"position" => $position++,
-								"item" => array (
+								"item" => array(
 									"@id" => "https://www.ibd-events.com/",
 									"name" => "IBD Events")
 								);
 
 							foreach ( $location_terms as $term ) {
 
-								$crumbs1[] = array (
+								$crumbs1[] = array(
 									"@type" => "ListItem",
 									"position" => $position++,
-									"item" => array (
+									"item" => array(
 										"@id" => get_term_link( $term->slug, 'ibde-location' ),
 										"name" => $term->name )
 									);
 							}
 
-							$crumbs1[] = array (
+							$crumbs1[] = array(
 								"@type" => "ListItem",
 								"position" => $position++,
-								"item" => array (
+								"item" => array(
 									"@id" => get_permalink(),
 									"name" => get_the_title())
 								);
@@ -383,7 +380,7 @@ $event = new IBDEvent($post->ID);
 							$bread1['itemListElement'] = $crumbs1;
 
 							echo '<script type="application/ld+json">';
-							echo json_encode($bread1, JSON_PRETTY_PRINT); 
+							echo wp_json_encode($bread1, JSON_PRETTY_PRINT); 
 							echo '</script>';
 						}
 						?>
@@ -397,20 +394,18 @@ $event = new IBDEvent($post->ID);
 						$schema['@type'] = "Event";
 						$schema['name'] = get_the_title();
 
-			//if ($location) {
-						$locationSchema = array();
-						$locationSchema['@type'] = "Place";
-						@$locationSchema['address'] = array(
-							"@type"=> "PostalAddress", 
-							"name"=> $location['address'], 
-							"addressCountry"=> $country_code);
-						$locationSchema['geo'] = array(
-							"@type"=>"GeoCoordinates", 
-							"latitude"=>$location["lat"], 
-							"longitude"=>$location["lng"]);
-						$locationSchema['name'] = get_field('venue');
-						$schema['location'] = $locationSchema;
-			//}
+						$location_schema = array();
+						$location_schema['@type'] = "Place";
+						@$location_schema['address'] = array(
+							"@type" => "PostalAddress", 
+							"name" => $location['address'], 
+							"addressCountry" => $country_code);
+						$location_schema['geo'] = array(
+							"@type" =>"GeoCoordinates", 
+							"latitude" => $location["lat"], 
+							"longitude" => $location["lng"]);
+						$location_schema['name'] = get_field('venue');
+						$schema['location'] = $location_schema;
 
 						$schema['url'] = get_permalink();
 						$schema['startDate'] = $event->formatted_start_date('Y-m-d\TH:i:sP');
@@ -435,15 +430,10 @@ $event = new IBDEvent($post->ID);
 
 						$schema['description'] = $content;
 
-// $schema['category'] = array("name"=>"",
-// 	"description"=>"",
-// 	"url"=>"",
-// 	"image"=>url,);
-
 						?>
 
 						<script type="application/ld+json" id="IBD-Schema">
-							<?php echo json_encode($schema, JSON_PRETTY_PRINT); ?>
+							<?php echo wp_json_encode($schema, JSON_PRETTY_PRINT); ?>
 						</script>
 
 						<?php get_footer(); ?>
