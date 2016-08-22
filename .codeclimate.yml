@@ -36,11 +36,19 @@ engines:
         enabled: false
       WordPress WhiteSpace ControlStructureSpacing NoSpaceBeforeCloseParenthesis:
         enabled: false
+      WordPress WhiteSpace ControlStructureSpacing SpaceBeforeFunctionOpenParenthesis:
+        enabled: false
+      WordPress VIP RestrictedFunctions get_term_link:
+        enabled: false
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
       Squiz Commenting InlineComment InvalidEndChar:
         enabled: false
       Squiz Commenting InlineComment NotCapital:
+        enabled: false
+      Squiz Functions FunctionDeclarationArgumentSpacing SpacingAfterOpen:
+        enabled: false
+      Squiz Functions FunctionDeclarationArgumentSpacing SpacingBeforeClose:
         enabled: false
       Generic WhiteSpace DisallowTabIndent NonIndentTabsUsed:
         enabled: false

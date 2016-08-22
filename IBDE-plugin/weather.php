@@ -4,11 +4,9 @@ function ibde_get_weather ($postID) {
 
   update_weather_view_counter($postID);
 
-  // $transientID = $postID . "_weather";
-  // $weatherData = get_transient( $transientID );
   $weatherData = get_post_meta( $postID, 'weather_data', true);
 
-  if ( $weatherData == FALSE) {
+  if ( false === $weatherData) {
    $weatherData = refresh_weather_data($postID);
  }
 
@@ -21,8 +19,6 @@ function refresh_weather_data ($postID) {
 	if(!$location) {
 		return false;
 	}  
-
-	//$transientID = $postID . "_weather";
 
   $start_date = ibde_get_start_date();
   $weatherDate = $start_date->format('Y-m-d\TH:i:s');
@@ -127,7 +123,7 @@ function refresh_expired_weather_cron () {
   $cron_data['last_run'] = date("F j, Y, g:i a");
 
   $ID = get_next_cache_reset();
-  if ($ID !== NULL) {
+  if (null !== $ID ) {
 
     global $post; 
     $post = get_post( $ID, OBJECT );
