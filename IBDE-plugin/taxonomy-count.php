@@ -1,13 +1,12 @@
-<?php 
+<?php
 
-
-if( !wp_next_scheduled( 'ibde_update_taxonomy_count_cron' ) ) {
+if ( ! wp_next_scheduled( 'ibde_update_taxonomy_count_cron' ) ) { 
 	// Schedule the event
 	wp_schedule_event( time(), 'daily', 'ibde_update_taxonomy_count_cron' );
 }
 add_action( 'ibde_update_taxonomy_count_cron', 'ibde_update_tax_count' );
 
-
+/** Runs a query to update the count field with the count of events in the future only */
 function ibde_update_tax_count () {
 
 	$query = "UPDATE wp_term_taxonomy LEFT JOIN (
