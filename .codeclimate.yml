@@ -38,7 +38,9 @@ engines:
         enabled: false
       WordPress WhiteSpace ControlStructureSpacing SpaceBeforeFunctionOpenParenthesis:
         enabled: false
-      WordPress VIP RestrictedFunctions:
+      WordPress VIP RestrictedFunctions curl:
+        enabled: false
+      WordPress VIP RestrictedFunctions get_term_link:
         enabled: false
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
@@ -57,6 +59,8 @@ engines:
       Generic WhiteSpace DisallowSpaceIndent SpacesUsed:
         enabled: false
       Generic WhiteSpace ScopeIndent IncorrectExact:
+        enabled: false
+      Generic WhiteSpace ScopeIndent Incorrect:
         enabled: false
       Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
         enabled: false
