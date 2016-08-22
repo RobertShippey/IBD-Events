@@ -1,22 +1,22 @@
 <?php 
 
-function ibde_get_weather ($postID) {
+function ibde_get_weather ($post_id) {
 
-  update_weather_view_counter($postID);
+  update_weather_view_counter($post_id);
 
-  $weatherData = get_post_meta( $postID, 'weather_data', true);
+  $weather_data = get_post_meta( $post_id, 'weather_data', true);
 
-  if ( false === $weatherData) {
-   $weatherData = refresh_weather_data($postID);
+  if ( false === $weather_data) {
+   $weather_data = refresh_weather_data($post_id);
  }
 
- return $weatherData;
+ return $weather_data;
 }
 
-function refresh_weather_data ($postID) {
+function refresh_weather_data ($post_id) {
 
-	$location = get_field('location', $postID);
-	if(!$location) {
+	$location = get_field('location', $post_id);
+	if ( !$location ) {
 		return false;
 	}  
 
@@ -25,63 +25,62 @@ function refresh_weather_data ($postID) {
 
   global $_KEYS;
 
-  $forecastFormat = "https://api.forecast.io/forecast/".$_KEYS['forecast.io']."/%s,%s,%s?units=uk2";
-  $forecaseURL = sprintf($forecastFormat, $location['lat'], $location['lng'], $weatherDate);
+  $forecast_format = "https://api.forecast.io/forecast/".$_KEYS['forecast.io']."/%s,%s,%s?units=uk2";
+  $forecase_URL = sprintf($forecast_format, $location['lat'], $location['lng'], $weatherDate);
 
-  $weatherCH = curl_init();
+  $weather_ch = curl_init();
 
-  curl_setopt($weatherCH, CURLOPT_URL, $forecaseURL);
-  curl_setopt($weatherCH, CURLOPT_RETURNTRANSFER, true); // return the output in string format 
-  curl_setopt($weatherCH, CURLOPT_HEADERFUNCTION, "HandleHeaderLine"); 
-  $weatherOutput = curl_exec($weatherCH); // execute 
-  curl_close($weatherCH); // close curl handle
+  curl_setopt($weather_ch, CURLOPT_URL, $forecase_URL);
+  curl_setopt($weather_ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format 
+  curl_setopt($weather_ch, CURLOPT_HEADERFUNCTION, "handle_header_line"); 
+  $weather_output = curl_exec($weather_ch); // execute 
+  curl_close($weather_ch); // close curl handle
 
-  $weatherResponse = json_decode($weatherOutput, true);
+  $weather_response = json_decode($weather_output, true);
 
-  if ($weatherResponse) {
+  if ($weather_response) {
 
     // pull out specific information into array
-  	$weatherData = array();
-  	@$weatherData['summary'] = $weatherResponse['currently']['summary'];
-  	@$weatherData['icon'] = $weatherResponse['currently']['icon'];
-    @$weatherData['precipType'] = $weatherResponse['currently']['precipType']; //If precipIntensity is zero, then this property will not be defined.
-    @$weatherData['precipIntensity'] = $weatherResponse['currently']['precipIntensity'];
-    @$weatherData['precipProbability'] = $weatherResponse['currently']['precipProbability'];
-    @$weatherData['temperature'] = $weatherResponse['currently']['temperature'];
-    @$weatherData['apparentTemperature'] = $weatherResponse['currently']['apparentTemperature'];
-    @$weatherData['windSpeed'] = $weatherResponse['currently']['windSpeed'];
-     @$weatherData['windBearing'] = $weatherResponse['currently']['windBearing']; // wind coming FROM in degrees
-     @$weatherData['cloudCover'] = $weatherResponse['currently']['cloudCover'];
+  	$weather_data = array();
+  	@$weather_data['summary'] = $weather_response['currently']['summary'];
+  	@$weather_data['icon'] = $weather_response['currently']['icon'];
+    @$weather_data['precipType'] = $weather_response['currently']['precipType']; //If precipIntensity is zero, then this property will not be defined.
+    @$weather_data['precipIntensity'] = $weather_response['currently']['precipIntensity'];
+    @$weather_data['precipProbability'] = $weather_response['currently']['precipProbability'];
+    @$weather_data['temperature'] = $weather_response['currently']['temperature'];
+    @$weather_data['apparentTemperature'] = $weather_response['currently']['apparentTemperature'];
+    @$weather_data['windSpeed'] = $weather_response['currently']['windSpeed'];
+     @$weather_data['windBearing'] = $weather_response['currently']['windBearing']; // wind coming FROM in degrees
+     @$weather_data['cloudCover'] = $weather_response['currently']['cloudCover'];
      
      // not used in front end - might want... maybe
-     @$weatherData['sources'] = $weatherResponse['flags']['sources'];
+     @$weather_data['sources'] = $weather_response['flags']['sources'];
 
      // cache weather for twice as long as suggested by Forecast.io
-     global $weatherMaxAge;
-     $cacheLength = $weatherMaxAge * 2;
+     global $weather_max_age;
+     $cache_length = $weather_max_age * 2;
 
     // if the doubled cache length is less than 2 hrs
-     if (7200 > $cacheLength) {
-       $cacheLength = 7200; // set the cache length to 2 hrs
+     if (7200 > $cache_length) {
+       $cache_length = 7200; // set the cache length to 2 hrs
      }
 
-     $weatherData['cacheLength'] = $cacheLength;
+     $weather_data['cacheLength'] = $cache_length;
 
-     update_post_meta($postID, 'weather_data', $weatherData);
-     update_post_meta($postID, 'weather_cache_expire', time() + $cacheLength);
+     update_post_meta($post_id, 'weather_data', $weather_data);
+     update_post_meta($post_id, 'weather_cache_expire', time() + $cache_length);
 
-     //set_transient( $transientID, $weatherData);
-     return $weatherData;
+     return $weather_data;
    }
  }
 
 
- function update_weather_view_counter ($postID) {
-  $counterKey = 'weather_view_count';
+ function update_weather_view_counter ($post_id) {
+  $counter_key = 'weather_view_count';
 
-  $view_count = get_post_meta( $postID, $counterKey , true );
-  if( ! $view_count ) {
-    update_post_meta ($postID, $counterKey, 1);
+  $view_count = get_post_meta( $post_id, $counter_key , true );
+  if ( !$view_count ) {
+    update_post_meta ($post_id, $counter_key, 1);
     $view_count = 1;
   } else {
     global $wpdb;
@@ -91,7 +90,7 @@ function refresh_weather_data ($postID) {
         SET meta_value = (meta_value + 1) 
         WHERE post_id = %d 
         AND meta_key = %s
-        ", $postID, $counterKey));
+        ", $post_id, $counter_key));
   }
 }
 
@@ -122,40 +121,39 @@ function refresh_expired_weather_cron () {
 
   $cron_data['last_run'] = date("F j, Y, g:i a");
 
-  $ID = get_next_cache_reset();
-  if (null !== $ID ) {
+  $next_id = get_next_cache_reset();
+  if (null !== $next_id ) {
 
     global $post; 
-    $post = get_post( $ID, OBJECT );
+    $post = get_post( $next_id, OBJECT );
     setup_postdata( $post );
 
-    refresh_weather_data($ID);
-    update_post_meta ($ID, 'weather_view_count', 0);
+    refresh_weather_data($next_id);
+    update_post_meta ($next_id, 'weather_view_count', 0);
 
     $cron_data['last_updated'] = date("F j, Y, g:i a");
 
     wp_reset_postdata();
   }
 
-  $cron_data['last_ID'] = $ID;
+  $cron_data['last_ID'] = $next_id;
   set_transient('weather_cron_data', $cron_data);
 }
 
 
-// pull the max age from Forecast IO header
-function HandleHeaderLine( $curl, $header_line ) {
+/** pull the max age from Forecast IO header */
+function handle_header_line( $curl, $header_line ) {
   // pull out cache expiry
-	if (ibde_startsWith($header_line, "Cache-Control")) {
+	if (ibde_starts_with($header_line, "Cache-Control")) {
 		$max_age_string = str_replace("Cache-Control: max-age=", "", $header_line);
-		global $weatherMaxAge;
-		$weatherMaxAge = (int)$max_age_string;
+		global $weather_max_age;
+		$weather_max_age = (int)$max_age_string;
 	}
 
   // update dashboard stats
-	if (ibde_startsWith($header_line, "X-Forecast-API-Calls")) {
+	if (ibde_starts_with($header_line, "X-Forecast-API-Calls")) {
 
 		$calls_used_string = str_replace("X-Forecast-API-Calls: ", "", $header_line);
-    //$new_value = (int)$calls_used_string;
 
 		$api_data = array(
 			'calls' => $calls_used_string,
@@ -167,8 +165,8 @@ function HandleHeaderLine( $curl, $header_line ) {
 }
 
 
-// helper function
-function ibde_startsWith($haystack, $needle) {
+/** helper function */
+function ibde_starts_with($haystack, $needle) {
     // search backwards starting from haystack length characters from the end
-	return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+	return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
 }
