@@ -38,7 +38,7 @@ engines:
         enabled: false
       WordPress WhiteSpace ControlStructureSpacing SpaceBeforeFunctionOpenParenthesis:
         enabled: false
-      WordPress VIP RestrictedFunctions get_term_link:
+      WordPress VIP:
         enabled: false
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
