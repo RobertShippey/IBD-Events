@@ -50,9 +50,13 @@ engines:
         enabled: false
       Squiz Functions FunctionDeclarationArgumentSpacing SpacingBeforeClose:
         enabled: false
+      Squiz WhiteSpace SuperfluousWhitespace EndLine:
+        enabled: false
       Generic WhiteSpace DisallowTabIndent NonIndentTabsUsed:
         enabled: false
       Generic WhiteSpace DisallowSpaceIndent SpacesUsed:
+        enabled: false
+      Generic WhiteSpace ScopeIndent IncorrectExact:
         enabled: false
       Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
         enabled: false

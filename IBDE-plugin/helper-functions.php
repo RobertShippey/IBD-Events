@@ -1,21 +1,21 @@
 <?php 
 
-//Takes an angle in degrees and returns a text description of that angle
-//Parameters:
-//$angle is the angle to be described in degrees (may be positive or negative)
-//$division is number of cardinal points to be used. 
-// It may be 2 (N or S), 4 (N, E, S, W), 8 (N, NE, W, etc), 16 (N, NNE, NE, ENE, etc) or
-// 32 (N, NNE by N, NNE, NNE by E, NE by N, etc)
-//Returns:
-//Array with keys
-// 'resolved_angle' is the numerical value of the returned angle
-// 'short_name' is the abbreviation of the text description of the returned angle (N, NE, NNExE, etc)
-// 'full_name' is the full text version of the decription of the returned angle (N, North East by North)
-//Check division is one of the acceptable angles.  
+/** Takes an angle in degrees and returns a text description of that angle
+ Parameters:
+ $angle is the angle to be described in degrees (may be positive or negative)
+ $division is number of cardinal points to be used. 
+  It may be 2 (N or S), 4 (N, E, S, W), 8 (N, NE, W, etc), 16 (N, NNE, NE, ENE, etc) or
+  32 (N, NNE by N, NNE, NNE by E, NE by N, etc)
+ Returns:
+ Array with keys
+  'resolved_angle' is the numerical value of the returned angle
+  'short_name' is the abbreviation of the text description of the returned angle (N, NE, NNExE, etc)
+  'full_name' is the full text version of the decription of the returned angle (N, North East by North)
+ Check division is one of the acceptable angles.  */
 function cardinal_direction($angle, $division = 8) {
 
         if ($division == !in_array($division, array('2', '4', '8', '16', '32'))) {
-          return FALSE;
+          return false;
         }
 
         $short_name = array(
@@ -50,7 +50,7 @@ function cardinal_direction($angle, $division = 8) {
             315 => 'NW',
             326.25 => 'NWxN',
             337.5 => 'NNW',
-            348.75 => 'NxW'
+            348.75 => 'NxW',
         );
 
         $full_name = array(
@@ -85,24 +85,24 @@ function cardinal_direction($angle, $division = 8) {
             315 => 'North West',
             326.25 => 'North West by North',
             337.5 => 'North North West',
-            348.75 => 'North by West'
+            348.75 => 'North by West',
         );
 
-//Make sure angle is 0-359 and positive
+// Make sure angle is 0-359 and positive
         $angle = $angle % 360;
 
         if ($angle < 0) {
-          $angle = 360 + $angle; //Addition beacause angle is negative
+          $angle = 360 + $angle; // Addition beacause angle is negative
         }
 
 
-//Work out how big each segment is in degrees (e.g NSEW is 90deg segments)
+// Work out how big each segment is in degrees (e.g NSEW is 90deg segments)
         $segment_size = 360 / $division;
 
-//Resolved angle is the closest 'segment' to the passed $angle
+// Resolved angle is the closest 'segment' to the passed $angle
         $resolved_angle = (float) round($angle / $segment_size) * $segment_size;
-        if ($resolved_angle == 360) {
-          $resolved_angle = 0; //0 will resolve to 360 so set it back to 0
+        if (360 == $resolved_angle) {
+          $resolved_angle = 0; // 0 will resolve to 360 so set it back to 0
         };
 
         return array('resolved_angle' => $resolved_angle, 'short_name' => $short_name[$resolved_angle], 'full_name' => $full_name[$resolved_angle]);
