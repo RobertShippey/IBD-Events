@@ -146,6 +146,7 @@ $event = new IBDEvent($post->ID);
 									<?php if (get_field('external_link')) {
 										$external_url = get_field('external_link');
 										$external_hostname = wp_parse_url($external_url, PHP_URL_HOST); 
+										$external_hostname = $external_hostname['host'];
 										$external_sitename = str_replace("www.", "", $external_hostname); ?>
 
 										<div id="external-link">
@@ -160,6 +161,7 @@ $event = new IBDEvent($post->ID);
 										<?php if (get_field('buy_tickets')) {
 											$buy_url = get_field('buy_tickets');
 											$buy_hostname = wp_parse_url($buy_url, PHP_URL_HOST); 
+											$buy_hostname = $buy_hostname['host'];
 											$buy_sitename = str_replace("www.", "", $buy_hostname); ?>
 
 											<p><img class="favico" height="16" width="16" src="https://www.google.com/s2/favicons?domain=<?php echo $buy_hostname; ?>" alt="<?php echo $buy_sitename; ?> favicon"> 
