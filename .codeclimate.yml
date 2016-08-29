@@ -42,6 +42,8 @@ engines:
         enabled: false
       WordPress VIP RestrictedFunctions get_term_link:
         enabled: false
+      WordPress VIP RestrictedFunctions term_exists:
+        enabled: false
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
       Squiz Commenting InlineComment InvalidEndChar:
