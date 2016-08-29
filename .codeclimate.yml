@@ -32,18 +32,23 @@ engines:
         enabled: false
       PEAR Functions FunctionCallSignature Indent:
         enabled: false
+
       WordPress WhiteSpace ControlStructureSpacing NoSpaceAfterOpenParenthesis:
         enabled: false
       WordPress WhiteSpace ControlStructureSpacing NoSpaceBeforeCloseParenthesis:
         enabled: false
       WordPress WhiteSpace ControlStructureSpacing SpaceBeforeFunctionOpenParenthesis:
         enabled: false
+
       WordPress VIP RestrictedFunctions curl:
         enabled: false
       WordPress VIP RestrictedFunctions get_term_link:
         enabled: false
       WordPress VIP RestrictedFunctions term_exists:
         enabled: false
+      WordPress VIP RestrictedFunctions wp_remote_get:
+        enabled: false
+
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
       Squiz Commenting InlineComment InvalidEndChar:
@@ -56,6 +61,9 @@ engines:
         enabled: false
       Squiz WhiteSpace SuperfluousWhitespace EndLine:
         enabled: false
+      Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
+        enabled: false
+
       Generic WhiteSpace DisallowTabIndent NonIndentTabsUsed:
         enabled: false
       Generic WhiteSpace DisallowSpaceIndent SpacesUsed:
@@ -63,8 +71,6 @@ engines:
       Generic WhiteSpace ScopeIndent IncorrectExact:
         enabled: false
       Generic WhiteSpace ScopeIndent Incorrect:
-        enabled: false
-      Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
         enabled: false
 ratings:
   paths:

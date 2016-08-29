@@ -102,7 +102,6 @@ add_action('acf/save_post', 'save_event_location_meta', 30);
 function get_location_details($lat, $lng) {
 
     $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $lng . "&sensor=false";
-    $data = file_get_contents($url);
 
     $request  = wp_remote_get($url);
     $response = wp_remote_retrieve_body($request);
