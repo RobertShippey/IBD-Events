@@ -39,12 +39,12 @@ function save_event_location_meta($post_id ) {
             }
 
             // admin area category
-            if (array_key_exists('administrative_area_level_1 political', $location_data)) {
-
-                $admin_area_term = $location_data['administrative_area_level_1 political']['long'];
-            } else {
+            if (array_key_exists('administrative_area_level_2 political', $location_data)) {
 
                 $admin_area_term = $location_data['administrative_area_level_2 political']['long'];
+            } else {
+
+                $admin_area_term = $location_data['administrative_area_level_1 political']['long'];
             }
 
             $admin_term_taxonomy_ids = term_exists($admin_area_term, $location_taxonomy);
