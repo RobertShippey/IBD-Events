@@ -6,7 +6,7 @@ function ibde_get_weather ($post_id) {
 
   $weather_data = get_post_meta( $post_id, 'weather_data', true);
 
-  if ( false === $weather_data) {
+  if ( '' === $weather_data) {
    $weather_data = refresh_weather_data($post_id);
  }
 
