@@ -3,26 +3,25 @@
 class IBDEvent
 {
 
-  private $postID;
-  private $weatherMaxAge;
+  private $post_id;
   private $start_date;
   private $end_date;
   private $location;
 
-  function __construct($postID) {
-   $this->postID = $postID;
+  function __construct($post_id) {
+   $this->post_id = $post_id;
 
    $this->start_date = new DateTime();
-   $this->start_date->setTimestamp((int)get_field('start_date', $this->postID));
+   $this->start_date->setTimestamp((int)get_field('start_date', $this->post_id));
 
    if (get_field('end_date')) {
      $this->end_date = new DateTime();
-     $this->end_date->setTimestamp((int)get_field('end_date', $this->postID));
+     $this->end_date->setTimestamp((int)get_field('end_date', $this->post_id));
    } else {
-    $this->end_date = NULL;
+    $this->end_date = null;
   }
 
-  $this->location = get_field('location', $this->postID);
+  $this->location = get_field('location', $this->post_id);
 
 }
 
@@ -34,28 +33,27 @@ public function formatted_start_date($format) {
 
 public function formatted_end_date($format) {
 
-  if(get_field('end_date')){ 
+  if ( get_field('end_date' )) { 
     $end_date = ibde_get_end_date();
     return $end_date->format($format);
   } else {
-    return NULL;
+    return null;
   }
 }
 
 public function has_end_date() {
-  if(get_field('end_date')){ 
+  if ( get_field('end_date' )) { 
     return true;
   } else {
     return false;
   }
 }
 
-public function formatted_end_date_or_default($format){
-
+public function formatted_end_date_or_default($format) {
 
   $end_date_formatted = formatted_end_date($format);
 
-  if ($end_date_formatted === NULL ){
+  if ( null === $end_date_formatted ) {
    $start_date = ibde_get_start_date();
    $start_date->add(new DateInterval("PT2H"));
    $end_date_formatted = $start_date->format('Ymd\THis');
@@ -71,7 +69,7 @@ public function coords () {
 
 public function has_weather () {
   // if has location, date and time, and is not online then true
-  if($this->location) {
+  if ( $this->location ) {
     return true;
   } else {
     return false;
