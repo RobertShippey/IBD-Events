@@ -16,21 +16,21 @@ function ibde_get_weather ($post_id) {
 function refresh_weather_data ($post_id) {
 
 	$location = get_field('location', $post_id);
-	if ( !$location ) {
+	if ( ! $location ) {
 		return false;
 	}  
 
   $start_date = ibde_get_start_date();
-  $weatherDate = $start_date->format('Y-m-d\TH:i:s');
+  $weather_date = $start_date->format('Y-m-d\TH:i:s');
 
   global $_KEYS;
 
   $forecast_format = "https://api.forecast.io/forecast/".$_KEYS['forecast.io']."/%s,%s,%s?units=uk2";
-  $forecase_URL = sprintf($forecast_format, $location['lat'], $location['lng'], $weatherDate);
+  $forecast_url = sprintf($forecast_format, $location['lat'], $location['lng'], $weather_date);
 
   $weather_ch = curl_init();
 
-  curl_setopt($weather_ch, CURLOPT_URL, $forecase_URL);
+  curl_setopt($weather_ch, CURLOPT_URL, $forecast_url);
   curl_setopt($weather_ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format 
   curl_setopt($weather_ch, CURLOPT_HEADERFUNCTION, "handle_header_line"); 
   $weather_output = curl_exec($weather_ch); // execute 
@@ -42,26 +42,26 @@ function refresh_weather_data ($post_id) {
 
     // pull out specific information into array
   	$weather_data = array();
-  	@$weather_data['summary'] = $weather_response['currently']['summary'];
-  	@$weather_data['icon'] = $weather_response['currently']['icon'];
-    @$weather_data['precipType'] = $weather_response['currently']['precipType']; //If precipIntensity is zero, then this property will not be defined.
-    @$weather_data['precipIntensity'] = $weather_response['currently']['precipIntensity'];
-    @$weather_data['precipProbability'] = $weather_response['currently']['precipProbability'];
-    @$weather_data['temperature'] = $weather_response['currently']['temperature'];
-    @$weather_data['apparentTemperature'] = $weather_response['currently']['apparentTemperature'];
-    @$weather_data['windSpeed'] = $weather_response['currently']['windSpeed'];
-     @$weather_data['windBearing'] = $weather_response['currently']['windBearing']; // wind coming FROM in degrees
-     @$weather_data['cloudCover'] = $weather_response['currently']['cloudCover'];
-     
+  	$weather_data['summary'] = $weather_response['currently']['summary'];
+  	$weather_data['icon'] = $weather_response['currently']['icon'];
+    $weather_data['precipType'] = $weather_response['currently']['precipType']; // If precipIntensity is zero, then this property will not be defined.
+    $weather_data['precipIntensity'] = $weather_response['currently']['precipIntensity'];
+    $weather_data['precipProbability'] = $weather_response['currently']['precipProbability'];
+    $weather_data['temperature'] = $weather_response['currently']['temperature'];
+    $weather_data['apparentTemperature'] = $weather_response['currently']['apparentTemperature'];
+    $weather_data['windSpeed'] = $weather_response['currently']['windSpeed'];
+    $weather_data['windBearing'] = $weather_response['currently']['windBearing']; // wind coming FROM in degrees
+    $weather_data['cloudCover'] = $weather_response['currently']['cloudCover'];
+
      // not used in front end - might want... maybe
-     @$weather_data['sources'] = $weather_response['flags']['sources'];
+    $weather_data['sources'] = $weather_response['flags']['sources'];
 
      // cache weather for twice as long as suggested by Forecast.io
-     global $weather_max_age;
-     $cache_length = $weather_max_age * 2;
+    global $weather_max_age;
+    $cache_length = $weather_max_age * 2;
 
     // if the doubled cache length is less than 2 hrs
-     if (7200 > $cache_length) {
+    if (7200 > $cache_length) {
        $cache_length = 7200; // set the cache length to 2 hrs
      }
 
@@ -79,7 +79,7 @@ function refresh_weather_data ($post_id) {
   $counter_key = 'weather_view_count';
 
   $view_count = get_post_meta( $post_id, $counter_key , true );
-  if ( !$view_count ) {
+  if ( ! $view_count ) {
     update_post_meta ($post_id, $counter_key, 1);
     $view_count = 1;
   } else {
@@ -168,5 +168,5 @@ function handle_header_line( $curl, $header_line ) {
 /** helper function */
 function ibde_starts_with($haystack, $needle) {
     // search backwards starting from haystack length characters from the end
-	return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+	return "" === $needle || false !== strrpos($haystack, $needle, -strlen($haystack));
 }
