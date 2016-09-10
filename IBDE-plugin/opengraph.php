@@ -12,21 +12,21 @@ add_filter( 'wpseo_opengraph_type', 'ibde_opengraph_type' );
 add_action( 'wp_head', function() {
     global $post;
     // make sure it's a WooCommerce product on display
-    if ( 'ibde-event' == get_post_type() ) {
+    if ( 'ibde-event' === get_post_type() ) {
 
         $start_date = ibde_get_start_date();
         $start_date_string = $start_date->format('Y-m-d\TH:i:s');
 
         echo '<meta property="ibdevents:start_time" content="' . $start_date_string . '" />';
 
-        if(get_field('end_date')){
+        if ( get_field('end_date')) {
             $end_date = ibde_get_end_date();
             $end_date_string = $end_date->format('Y-m-d\TH:i:s');
 
             echo '<meta property="ibdevents:end_time" content="' . $end_date_string . '" />';
         }
 
-        if(get_field('location')){
+        if ( get_field('location')) {
             $location = get_field('location');
             
             echo '<meta property="ibdevents:location:latitude" content="' . $location['lat'] . '" />';
@@ -40,13 +40,13 @@ add_action( 'wp_head', function() {
 function ibde_opengraph_meta_desc ( $text ) {
     global $post;
 
-    if (is_singular('ibde-event') ){
+    if (is_singular('ibde-event') ) {
 
    $start_date = ibde_get_start_date();
 
-   $dateString = $start_date->format('jS M');
+   $date_string = $start_date->format('jS M');
 
-        $text = $dateString . '. ' . $text;
+        $text = $date_string . '. ' . $text;
     }
 
         $text = strip_shortcodes($text);
@@ -69,7 +69,7 @@ add_filter( 'wpseo_metadesc', 'ibde_opengraph_meta_desc' );
 
 function ibde_meta_title ( $title ) {
 
-    if (is_singular('ibde-event') ){
+    if ( is_singular('ibde-event') ){
 
          $post_title = get_the_title();
 
@@ -85,15 +85,13 @@ function ibde_meta_title ( $title ) {
 }
 add_filter( 'wpseo_title', 'ibde_meta_title', 1, 2 );
 
-
-///////
-
+/** Trim Excerpt function */
 function ibde_trim_excerpt ($text, $length, $finish_sentence) {
-    //Word length of the excerpt. This is exact or NOT depending on your '$finish_sentence' variable.
+    // Word length of the excerpt. This is exact or NOT depending on your '$finish_sentence' variable.
     $length = 15;
      /* Change the Length of the excerpt as you wish. The Length is in words. */
     
-    //1 if you want to finish the sentence of the excerpt (No weird cuts).
+    // 1 if you want to finish the sentence of the excerpt (No weird cuts).
     $finish_sentence = 1;
      // Put 0 if you do NOT want to finish the sentence.
     
@@ -101,35 +99,34 @@ function ibde_trim_excerpt ($text, $length, $finish_sentence) {
     $out = '';
     $word = 0;
     
-    //Divide the string into tokens; HTML tags, or words, followed by any whitespace.
+    // Divide the string into tokens; HTML tags, or words, followed by any whitespace.
     $regex = '/(<[^>]+>|[^<>\s]+)\s*/u';
     preg_match_all($regex, $text, $tokens);
     foreach ($tokens[0] as $t) {
         
-        //Parse each token
+        // Parse each token
         if ($word >= $length && !$finish_sentence) {
             
-            //Limit reached
+            // Limit reached
             break;
         }
         if ($t[0] != '<') {
             
-            //Token is not a tag.
-            //Regular expression that checks for the end of the sentence: '.', '?' or '!'
+            // Token is not a tag.
+            // Regular expression that checks for the end of the sentence: '.', '?' or '!'
             $regex1 = '/[\?\.\!]\s*$/uS';
             if ($word >= $length && $finish_sentence && preg_match($regex1, $t) == 1) {
                 
-                //Limit reached, continue until ? . or ! occur to reach the end of the sentence.
+                // Limit reached, continue until ? . or ! occur to reach the end of the sentence.
                 $out.= trim($t);
                 break;
             }
             $word++;
         }
         
-        //Append what's left of the token.
+        // Append what's left of the token.
         $out.= $t;
     }
 
     return $out;
 }
-

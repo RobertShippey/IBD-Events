@@ -52,6 +52,8 @@ engines:
         enabled: false
       WordPress VIP RestrictedFunctions wp_remote_get:
         enabled: false
+      WordPress VIP RestrictedFunctions custom_role:
+        enabled: false
 
       Squiz Strings DoubleQuoteUsage NotRequired:
         enabled: false
