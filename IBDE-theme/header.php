@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <!--[if lte IE 6 ]>
-<html lang="en-GB" class="ie ie6">
+<html lang="en" class="ie ie6">
 <![endif]--> 
 <!--[if IE 7 ]>
-<html lang="en-GB" class="ie ie7">
+<html lang="en" class="ie ie7">
 <![endif]--> 
 <!--[if IE 8 ]>
-<html lang="en-GB" class="ie ie8">
+<html lang="en" class="ie ie8">
 <![endif]--> 
 <!--[if !IE]>-->
-<html lang="en-GB">
+<html lang="en">
 <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
