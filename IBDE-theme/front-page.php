@@ -97,6 +97,14 @@ function displayEvent() {
 				}
 				$schema['offers']['sameAs'] = $schema['offers']['url'];
 
+				if (get_field('base_price_currency')) {
+					$schema['offers']['priceCurrency'] = get_field('base_price_currency');
+				}
+				if (get_field('base_price_amount')) {
+					$schema['offers']['@type'] = "AggregateOffer";
+					$schema['offers']['lowPrice'] = get_field('base_price_amount');
+				}
+
 				$content = apply_filters( 'the_content', get_the_content() );
 				$content = str_replace( ']]>', ']]&gt;', $content );
 				$content = strip_tags($content);
