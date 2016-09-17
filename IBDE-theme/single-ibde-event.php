@@ -56,21 +56,26 @@ $event = new IBDEvent($post->ID);
 						<div class="col-md-12">
 							<?php } ?>
 
-
 							<?php while ( have_posts() ) : the_post();
 
 							if ($post->post_content != "") { ?>
 								<blockquote class="content"><?php the_content(); ?></blockquote>
 								<?php } endwhile; ?>
 
+
+							<?php 
+							if ('' !== get_field('base_price_amount')) { ?>
+								<div class="row">
+									<div class="col-sm-10"> 
+										<?php } ?>
+
 								<h3 id="event-time" title="Local time"><?php echo $event->formatted_start_date('jS F h:i A'); ?></h3>
 
 								<?php if ($event->has_end_date()) { ?>
-									<script>
+									<script type="text/javascript">
 										var startTime = moment(<?php echo wp_json_encode($event->formatted_start_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
 										var endTime = moment(<?php echo wp_json_encode($event->formatted_end_date('Y-m-d\TH:i:s')); ?>, moment.ISO_8601);
 
-						//var timeRange = moment.twix(startTime, endTime, {allDay: true});
 										var timeRange = moment.twix(startTime, endTime);
 
 										var eventTime = document.getElementById('event-time');
@@ -82,7 +87,6 @@ $event = new IBDEvent($post->ID);
 
 									</script>
 									<?php } ?>
-
 
 									<?php $venue = get_field('venue'); 
 									if ($venue) { ?>
@@ -99,7 +103,25 @@ $event = new IBDEvent($post->ID);
 												} ?>
 												<?php echo $location['address']; ?>
 											</address>
-											<?php } ?>
+											<?php } 
+
+											if ('' !== get_field('base_price_amount')) { ?>
+
+											</div><div class="col-sm-2"> <?php 
+											$currency_code = get_field( 'base_price_currency' );
+											$base_price = get_field( 'base_price_amount' );
+
+											if ( "0" === $base_price ) {
+												echo "Tickets are <strong>FREE</strong>";
+											} elseif ($base_price) {
+
+												$formatter = new NumberFormatter( 'en', NumberFormatter::CURRENCY );
+												echo 'Tickets from <h4>'.$formatter->formatCurrency($base_price, $currency_code) . ' <small>'.$currency_code.'</small></h4>';
+											}
+											?> 
+											</div>
+											</div> 
+											<?php }  ?>
 										</div>
 
 
@@ -162,17 +184,23 @@ $event = new IBDEvent($post->ID);
 											$buy_url = get_field('buy_tickets');
 											$buy_hostname = wp_parse_url($buy_url, PHP_URL_HOST); 
 											$buy_hostname = $buy_hostname['host'];
-											$buy_sitename = str_replace("www.", "", $buy_hostname); ?>
+											$buy_sitename = str_replace("www.", "", $buy_hostname); 
+
+											if (get_field('tickets_action_verb')) {
+												$action_text = get_field('tickets_action_verb') . ' ';
+											} else {
+												$action_text = 'Buy tickets from ';
+											}
+											?>
 
 											<p><img class="favico" height="16" width="16" src="https://www.google.com/s2/favicons?domain=<?php echo $buy_hostname; ?>" alt="<?php echo $buy_sitename; ?> favicon"> 
-												Buy tickets from <a href="<?php echo $buy_url; ?>" target="_blank"><?php echo $buy_sitename; ?></a>
+												<?php echo $action_text; ?><a href="<?php echo $buy_url; ?>" target="_blank"><?php echo $buy_sitename; ?></a>
 											</p>
 											<?php } ?>
 
 											<?php if (get_field('hashtag')) { ?>
 												<pre><a href="https://twitter.com/hashtag/<?php the_field('hashtag'); ?>" target="_blank">#<?php the_field('hashtag'); ?></a></pre>
 												<?php } ?>
-
 
 												<?php
 
@@ -424,6 +452,14 @@ $event = new IBDEvent($post->ID);
 							$schema['offers']['url'] = get_field('external_link');
 						}
 						$schema['offers']['sameAs'] = $schema['offers']['url'];
+
+						if (get_field('base_price_currency')) {
+							$schema['offers']['priceCurrency'] = get_field('base_price_currency');
+						}
+						if (get_field('base_price_amount')) {
+							$schema['offers']['@type'] = "AggregateOffer";
+							$schema['offers']['lowPrice'] = get_field('base_price_amount');
+						}
 
 						$content = apply_filters( 'the_content', get_the_content() );
 						$content = str_replace( ']]>', ']]&gt;', $content );
