@@ -31,7 +31,7 @@ function output_ibd_news(){
 		}
 
 		$count++;
-		if ($count > 3) {
+		if ($count > 5) {
 			break;
 		}
 
