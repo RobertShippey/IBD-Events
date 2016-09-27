@@ -31,26 +31,25 @@
 
 <?php wp_head(); ?>
 
+<?php if ( is_front_page() || is_home() ) { ?>
 <script type="application/ld+json">
 	{
 		"@context": "http://schema.org",
 		"@type": "Organization",
-		"name" : "IBD Events",
-		"url": "https://ibd-events.com",
-		"logo": "https://ibd-events.com/ibd-red.png",
+		"@id":"#organization",
 		"sameAs" : [
-		"https://www.facebook.com/IBDEvents/",
-		"https://twitter.com/ibd_events",
 		"https://plus.google.com/+Ibdeventsdirectory"
 		],
 		"founder" : {
 			"@type": "Person",
+			"@id": "https://robertshippey.net/#person",
 			"name": "Robert Shippey",
 			"sameAs": "https://robertshippey.net/"
 		},
 		"foundingDate" : "2015"
 	}
 </script>
+<?php } ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script>
