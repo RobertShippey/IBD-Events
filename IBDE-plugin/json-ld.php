@@ -3,7 +3,9 @@
 /** 
  * Generates JSON+LD for a post
  */
-function ibde_generate_jsonld ( ) {
+function ibde_generate_jsonld () {
+
+	global $post;
 
 	$schema = array();
 	$schema['@context'] = "http://schema.org";
@@ -12,6 +14,9 @@ function ibde_generate_jsonld ( ) {
 
 	$schema['name'] = get_the_title();
 
+	$country_code = get_post_meta( $post->ID, 'country_code', true );
+	$location = get_field('location');
+	
 	$location_schema = array();
 	$location_schema['@type'] = "Place";
 	@$location_schema['address'] = array(
@@ -20,7 +25,7 @@ function ibde_generate_jsonld ( ) {
 		"addressCountry" => $country_code,
 		);
 	$location_schema['geo'] = array(
-		"@type" =>"GeoCoordinates", 
+		"@type" => "GeoCoordinates", 
 		"latitude" => $location["lat"], 
 		"longitude" => $location["lng"],
 		);
@@ -29,11 +34,11 @@ function ibde_generate_jsonld ( ) {
 
 	$schema['url'] = get_permalink();
 	
-	$startDate = ibde_get_start_date();
-	$schema['startDate'] = $startDate->format('Y-m-d\TH:i:s');
-	$endDate = ibde_get_end_date();
-	if ($endDate) {
-		$schema['endDate'] = $endDate->format('Y-m-d\TH:i:s');
+	$start_date = ibde_get_start_date();
+	$schema['startDate'] = $start_date->format('Y-m-d\TH:i:s');
+	$end_date = ibde_get_end_date();
+	if ($end_date) {
+		$schema['endDate'] = $end_date->format('Y-m-d\TH:i:s');
 	}
 	
 	$schema['image'] = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
@@ -62,7 +67,7 @@ function ibde_generate_jsonld ( ) {
 
 	$schema['description'] = $content;
 
-	$schema['sameAs'] = array(get_permalink(), get_field('external_link'));
+	$schema['sameAs'] = array( get_permalink(), get_field('external_link') );
 
 	return $schema;
 }
