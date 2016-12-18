@@ -29,3 +29,4 @@ require_once ($plugin_path . 'cron.php');
 require_once ($plugin_path . 'taxonomy-count.php');
 require_once ($plugin_path . 'news.php');
 require_once ($plugin_path . 'admin_sort.php');
+require_once ($plugin_path . 'json-ld.php');

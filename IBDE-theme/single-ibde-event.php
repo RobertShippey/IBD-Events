@@ -28,7 +28,7 @@ $event = new IBDEvent($post->ID);
 			if ($end_date_obj) {
 				if ($end_date_obj < $now_obj) {
 					$notice = "This event has ended.";
-				} else if ($start_date_obj < $now_obj) {
+				} elseif ($start_date_obj < $now_obj) {
 					$notice = "This event has started.";
 				}
 			} else {
@@ -37,7 +37,7 @@ $event = new IBDEvent($post->ID);
 
 				if ($fudge_end_date < $now_obj) {
 					$notice = "This event has ended.";
-				} else if ($start_date_obj < $now_obj) {
+				} elseif ($start_date_obj < $now_obj) {
 					$notice = "This event has started.";
 				}
 			} 
@@ -213,7 +213,7 @@ $event = new IBDEvent($post->ID);
 								<p><?php
 
 									if ( null !== $weather_data['precipIntensity'] && round($weather_data['precipIntensity'], 1) > 0) {
-										if ($weather_data['precipProbability'] !== null) {
+										if ( null !== $weather_data['precipProbability'] ) {
 											echo "There is a " . ($weather_data['precipProbability'] * 100) . "% chance it will " . $weather_data['precipType'] . " about " . round($weather_data['precipIntensity'], 1) . " inches. ";
 										} else {
 											echo "It could " . $weather_data['precipType'] . " about " . $weather_data['precipIntensity'] . " inches. ";
@@ -245,7 +245,8 @@ $event = new IBDEvent($post->ID);
 									"Eastern Time" => "America/New_York",
 									"Pacific Time" => "America/Los_Angeles",
 									"Sydney" => "Australia/Sydney",
-									"London" => "Europe/London");
+									"London" => "Europe/London",
+									);
 								$start_date = ibde_get_start_date();
 								?>
 								<div class="panel panel-default">
@@ -347,7 +348,6 @@ $event = new IBDEvent($post->ID);
 							<p><a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-exclamation-triangle"></i> Report an issue with this event</a></p>
 						</div>
 
-
 						<!-- Modal -->
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
@@ -357,16 +357,15 @@ $event = new IBDEvent($post->ID);
 										<h4 class="modal-title" id="myModalLabel">Report: <?php the_title(); ?></h4>
 									</div>
 									<div class="modal-body">
-										<?php if ( function_exists( 'ninja_forms_display_form' ) ){ ninja_forms_display_form( 5 ); } ?>
+										<?php if ( function_exists( 'ninja_forms_display_form' ) ) { 
+											ninja_forms_display_form( 5 ); 
+											} ?>
 									</div>
 								</div>
 							</div>
 						</div>	
 
-
 						<?php 
-
-
 						if ( ! empty( $location_terms ) && ! is_wp_error( $location_terms ) ) {
 
 							$bread1 = array();
@@ -381,7 +380,8 @@ $event = new IBDEvent($post->ID);
 								"position" => $position++,
 								"item" => array(
 									"@id" => "https://www.ibd-events.com/",
-									"name" => "IBD Events")
+									"name" => "IBD Events",
+									),
 								);
 
 							foreach ( $location_terms as $term ) {
@@ -391,7 +391,8 @@ $event = new IBDEvent($post->ID);
 									"position" => $position++,
 									"item" => array(
 										"@id" => get_term_link( $term->slug, 'ibde-location' ),
-										"name" => $term->name )
+										"name" => $term->name,
+										),
 									);
 							}
 
@@ -400,7 +401,8 @@ $event = new IBDEvent($post->ID);
 								"position" => $position++,
 								"item" => array(
 									"@id" => get_permalink(),
-									"name" => get_the_title())
+									"name" => get_the_title(),
+									),
 								);
 
 							$bread1['itemListElement'] = $crumbs1;
@@ -410,9 +412,6 @@ $event = new IBDEvent($post->ID);
 							echo '</script>';
 						}
 						?>
-
-
-
 						<?php 
 
 						$schema = array();
@@ -425,12 +424,12 @@ $event = new IBDEvent($post->ID);
 						@$location_schema['address'] = array(
 							"@type" => "PostalAddress", 
 							"name" => $location['address'], 
-							"addressCountry" => $country_code
+							"addressCountry" => $country_code,
 							);
 						$location_schema['geo'] = array(
 							"@type" => "GeoCoordinates", 
 							"latitude" => $location["lat"], 
-							"longitude" => $location["lng"]
+							"longitude" => $location["lng"],
 							);
 						$location_schema['name'] = get_field('venue');
 						$schema['location'] = $location_schema;

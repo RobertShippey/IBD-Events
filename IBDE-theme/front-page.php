@@ -11,7 +11,7 @@ function displayEvent() {
 				<div class="col-xs-12">
 					<h4 class="flushtop"><a href="<?php the_permalink();?>"><?php the_title();?></a></h4>
 				</div>
-				<?php if ( '' != get_the_post_thumbnail() ) : ?>
+				<?php if ( '' !== get_the_post_thumbnail() ) : ?>
 
 					<div class="col-xs-12">
 						<a href="<?php the_permalink();?>">
@@ -38,7 +38,6 @@ function displayEvent() {
 							if ( ! empty( $terms ) ) {
 								if ( ! is_wp_error( $terms ) ) {
 
-		//if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 									$terms = array_reverse($terms);
 									foreach ( $terms as $term ) {
 										echo '<a href="' . get_term_link( $term->slug, 'ibde-location' ) . '" title="' . sprintf('View all %s events', $term->name ) . '" class="btn btn-secondary btn-xs">' . $term->name . '</a> ';
@@ -54,68 +53,11 @@ function displayEvent() {
 					</div>
 				</div>
 
-				<?php 
-
-				$location = get_field('location');
-
-				$schema = array();
-				$schema['@context'] = "http://schema.org";
-				$schema['@type'] = "Event";
-				$schema['name'] = get_the_title();
-
-				$locationSchema = array();
-				$locationSchema['@type'] = "Place";
-				@$locationSchema['address'] = array(
-					"@type"=> "PostalAddress", 
-					"addressCountry"=> get_post_meta( $eventID, 'country_code', true));
-				if($location) {
-					$locationSchema['address']['name'] = $location['address'];
-					$locationSchema['geo'] = array(
-						"@type"=>"GeoCoordinates", 
-						"latitude"=>$location["lat"], 
-						"longitude"=>$location["lng"]);
-				}
-				$locationSchema['name'] = get_field('venue');
-				$schema['location'] = $locationSchema;
-
-				$schema['url'] = get_permalink();
-				$schema['startDate'] = $start_date->format('Y-m-d\TH:i:s');
-				if ($end_stamp = get_field('end_date', $eventID)) {
-					$start_date = new DateTime();
-					$start_date->setTimestamp((int)$end_stamp);
-					$schema['endDate'] = $start_date->format('Y-m-d\TH:i:s');
-				}
-
-				$schema['image'] = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
-				$schema['image'] = $schema['image'][0];
-
-				$schema['offers']['@type'] = "Offer";
-				if (get_field('buy_tickets')) {
-					$schema['offers']['url'] = get_field('buy_tickets');
-				} else {
-					$schema['offers']['url'] = get_field('external_link');
-				}
-				$schema['offers']['sameAs'] = $schema['offers']['url'];
-
-				if (get_field('base_price_currency')) {
-					$schema['offers']['priceCurrency'] = get_field('base_price_currency');
-				}
-				if (get_field('base_price_amount')) {
-					$schema['offers']['@type'] = "AggregateOffer";
-					$schema['offers']['lowPrice'] = get_field('base_price_amount');
-				}
-
-				$content = apply_filters( 'the_content', get_the_content() );
-				$content = str_replace( ']]>', ']]&gt;', $content );
-				$content = strip_tags($content);
-				$content = trim($content);
-
-				$schema['description'] = $content;
-
-				$schema['sameAs'] = array(get_permalink(), get_field('external_link'));
-				?>
 				<script type="application/ld+json">
-					<?php echo json_encode($schema, JSON_PRETTY_PRINT); ?>
+					<?php 
+					$schema = ibde_generate_jsonld();
+					echo wp_json_encode($schema, JSON_PRETTY_PRINT);
+					?>
 				</script>
 
 			</div>
