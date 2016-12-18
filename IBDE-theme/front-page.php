@@ -1,9 +1,6 @@
 <?php get_header(); ?>
-
 <?php 
-// 'meta_key' => '_thumbnail_id' // use this in WP_Query for thumbnails
-function displayEvent() {
-	$eventID = get_the_ID(); ?>
+function display_event() { ?>
 	<div class="col-xs-12 col-sm-4 col-md-3 eq space-below" style="height: 200px;">
 		<div class="featured-event-block">
 			<div class="row">
@@ -27,7 +24,7 @@ function displayEvent() {
 
 						<p>
 							<?php $venue = get_field('venue'); 
-							if($venue) { ?>
+							if ($venue) { ?>
 							<strong><?php echo $venue; ?></strong>
 							<br>
 							<?php } ?>
@@ -62,7 +59,7 @@ function displayEvent() {
 
 			</div>
 			<?php } 
-// END OF displayEvent() function  ~~~~~~~~
+// END OF display_event() function  ~~~~~~~~
 			?>
 
 			<div class="row space-below-2x">
@@ -74,10 +71,10 @@ function displayEvent() {
 						<?php
 
 // WP_Query arguments
-						$args = array (
+						$args = array(
 							'post_type'              => 'ibde-event',
 							'posts_per_page'         => '4',
-							'no_found_rows'			=> true
+							'no_found_rows'			=> true,
 							);
 
 // The Query
@@ -89,10 +86,10 @@ function displayEvent() {
 							while ( $query->have_posts() ) {
 								$query->the_post();
 
-								displayEvent(); 
+								display_event(); 
 							}
 						} else {
-	// no posts found
+							echo '<p>No upcoming events on the site 😢</p>';
 						}
 
 // Restore original Post Data
@@ -143,7 +140,7 @@ function displayEvent() {
 							'depth'  => 1,
 							'orderby' => 'count',
 							'order' => 'desc',
-							'number' => 10
+							'number' => 10,
 							);
 						$cats = get_categories( $args );
 
@@ -159,7 +156,7 @@ function displayEvent() {
 							<?php
 
 // WP_Query arguments
-							$args = array (
+							$args = array(
 								'post_type'              => 'ibde-event',
 								'posts_per_page'         => '8',
 								'no_found_rows'			 => true,
@@ -181,7 +178,7 @@ function displayEvent() {
 								while ( $query->have_posts() ) {
 									$query->the_post();
 
-									displayEvent(); 
+									display_event(); 
 								}
 
 								if ($query->post_count < 8) {
@@ -236,11 +233,11 @@ function displayEvent() {
 					<div class="row">
 						<?php
 
-						$args = array (
+						$args = array(
 							'post_type'              => 'ibde-event',
 							'posts_per_page'         => '4',
 							'orderby'                => 'date',
-							'no_found_rows' 		 => true
+							'no_found_rows' 		 => true,
 							);
 
 						$query = new WP_Query( $args );
@@ -250,7 +247,7 @@ function displayEvent() {
 							while ( $query->have_posts() ) {
 								$query->the_post();
 
-								displayEvent(); 
+								display_event(); 
 							}
 						} else {
 							echo '<p>Strange, we didn\'t find any recently added events. Check back later.</p>';
