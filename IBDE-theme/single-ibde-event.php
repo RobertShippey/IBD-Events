@@ -30,7 +30,6 @@ $event = new IBDEvent($post->ID);
 					$notice = "This event has ended.";
 				} else if ($start_date_obj < $now_obj) {
 					$notice = "This event has started.";
-					//echo "<pre>"; var_dump($end_date_obj); echo "</pre>";
 				}
 			} else {
 				$fudge_end_date = ibde_get_start_date();
@@ -44,13 +43,13 @@ $event = new IBDEvent($post->ID);
 			} 
 			if (isset($notice)) {
 				echo '<div class="col-xs-12">';
-				echo '<div class="alert alert-info" role="alert">' . $notice . '</div>';
+				echo "<div class=\"alert alert-info\" role=\"alert\">{$notice}</div>";
 				echo '</div>';
 			}
 			?>
 			
 
-			<?php if ( '' != get_the_post_thumbnail() ) { ?>			
+			<?php if ( '' !== get_the_post_thumbnail() ) { ?>			
 				<div class="col-md-7">
 					<?php } else { ?>
 						<div class="col-md-12">
@@ -58,7 +57,7 @@ $event = new IBDEvent($post->ID);
 
 							<?php while ( have_posts() ) : the_post();
 
-							if ($post->post_content != "") { ?>
+							if ('' !== $post->post_content) { ?>
 								<blockquote class="content"><?php the_content(); ?></blockquote>
 								<?php } endwhile; ?>
 
@@ -117,14 +116,14 @@ $event = new IBDEvent($post->ID);
 											} elseif ($base_price) {
 
 												$formatter = new NumberFormatter( 'en', NumberFormatter::CURRENCY );
-												echo 'Tickets from <h4>'.$formatter->formatCurrency($base_price, $currency_code) . ' <small>'.$currency_code.'</small></h4>';
+												echo 'Tickets from <h4>' . $formatter->formatCurrency($base_price, $currency_code) . ' <small>'.$currency_code.'</small></h4>';
 											}
 											?> </div> </div> 
 											<?php }  ?>
 												</div>
 
 
-										<?php if ( '' != get_the_post_thumbnail() ) : ?>
+										<?php if ( '' !== get_the_post_thumbnail() ) : ?>
 											<div class="col-md-5">
 												<?php the_post_thumbnail( 'Landscape', array( 'class' => 'img-responsive space-below' ) ); ?>
 											</div>
@@ -202,7 +201,7 @@ $event = new IBDEvent($post->ID);
 												<?php
 
 												$weather_data = ibde_get_weather($post->ID);
-						if (isset($weather_data['summary']) && $weather_data['summary'] !== null) { // only show weather if there is a 'summary'
+						if (isset($weather_data['summary']) && null !== $weather_data['summary'] ) { // only show weather if there is a 'summary'
 						?>
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -213,7 +212,7 @@ $event = new IBDEvent($post->ID);
 								<h3><?php echo $weather_data['summary']; ?></h3>
 								<p><?php
 
-									if ($weather_data['precipIntensity'] !== null && round($weather_data['precipIntensity'], 1) > 0) {
+									if ( null !== $weather_data['precipIntensity'] && round($weather_data['precipIntensity'], 1) > 0) {
 										if ($weather_data['precipProbability'] !== null) {
 											echo "There is a " . ($weather_data['precipProbability'] * 100) . "% chance it will " . $weather_data['precipType'] . " about " . round($weather_data['precipIntensity'], 1) . " inches. ";
 										} else {
@@ -257,7 +256,7 @@ $event = new IBDEvent($post->ID);
 									 <ul class="list-group">
 									<?php foreach ($zones as $key => $value) {
 									  $start_date->setTimezone(new DateTimeZone($value));
-										echo '<li class="list-group-item">' . $key . ": " . $start_date->format('h:i A ') . '<small>' . $start_date->format('jS F') . '</small>' . '</li>';
+									  echo '<li class="list-group-item">' . $key . ': ' . $start_date->format('h:i A ') . '<small>' . $start_date->format('jS F') . '</small></li>';
 									} ?>
 									</ul>
 									
@@ -275,7 +274,7 @@ $event = new IBDEvent($post->ID);
 								</div>
 								<div class="col-xs-4 col-sm-12 col-md-4 col-xl-4">
 									<div class="share-button">
-										<iframe src="https://www.facebook.com/plugins/share_button.php?href=<?php echo urlencode(get_permalink()); ?>&amp;layout=button" style="height: inherit;"></iframe>
+										<iframe src="https://www.facebook.com/plugins/share_button.php?href=<?php echo rawurlencode(get_permalink()); ?>&amp;layout=button" style="height: inherit;"></iframe>
 									</div>
 								</div>
 								<div class="col-xs-4 col-sm-12 col-md-4 col-xl-4">
@@ -308,13 +307,13 @@ $event = new IBDEvent($post->ID);
 				</div>
 				<?php } ?>
 
-
-				<?php 	$lat = (double)$location["lat"];
-				$lng = (double)$location["lng"];
+				<?php 	
+				$lat = (double) $location["lat"];
+				$lng = (double) $location["lng"];
 
 				$pos = array( 
 					'lat' => $lat, 
-					'lng' => $lng
+					'lng' => $lng,
 					); ?>
 				<script>
 					function initMap() {
@@ -426,11 +425,13 @@ $event = new IBDEvent($post->ID);
 						@$location_schema['address'] = array(
 							"@type" => "PostalAddress", 
 							"name" => $location['address'], 
-							"addressCountry" => $country_code);
+							"addressCountry" => $country_code
+							);
 						$location_schema['geo'] = array(
-							"@type" =>"GeoCoordinates", 
+							"@type" => "GeoCoordinates", 
 							"latitude" => $location["lat"], 
-							"longitude" => $location["lng"]);
+							"longitude" => $location["lng"]
+							);
 						$location_schema['name'] = get_field('venue');
 						$schema['location'] = $location_schema;
 
