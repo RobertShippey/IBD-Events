@@ -103,8 +103,9 @@ $event = new IBDEvent($post->ID);
 												} ?>
 												<?php echo $location['address']; ?>
 											</address>
-											<?php } 
+											<?php } ?>
 
+											<?php  
 											if ('' !== get_field('base_price_amount')) { ?>
 
 											</div><div class="col-sm-2"> <?php 
@@ -118,11 +119,9 @@ $event = new IBDEvent($post->ID);
 												$formatter = new NumberFormatter( 'en', NumberFormatter::CURRENCY );
 												echo 'Tickets from <h4>'.$formatter->formatCurrency($base_price, $currency_code) . ' <small>'.$currency_code.'</small></h4>';
 											}
-											?> 
-											</div>
-											</div> 
+											?> </div> </div> 
 											<?php }  ?>
-										</div>
+												</div>
 
 
 										<?php if ( '' != get_the_post_thumbnail() ) : ?>
@@ -131,11 +130,11 @@ $event = new IBDEvent($post->ID);
 											</div>
 										<?php endif; ?>
 
-									</div>
-								</div>
+											</div>
+										</div>
 
 
-								<div class="col-sm-4">
+										<div class="col-sm-4">
 
 									<?php  
 									$terms = get_the_terms( $post->ID, 'ibde-category' );
@@ -168,7 +167,6 @@ $event = new IBDEvent($post->ID);
 									<?php if (get_field('external_link')) {
 										$external_url = get_field('external_link');
 										$external_hostname = wp_parse_url($external_url, PHP_URL_HOST); 
-										$external_hostname = $external_hostname['host'];
 										$external_sitename = str_replace("www.", "", $external_hostname); ?>
 
 										<div id="external-link">
@@ -183,7 +181,6 @@ $event = new IBDEvent($post->ID);
 										<?php if (get_field('buy_tickets')) {
 											$buy_url = get_field('buy_tickets');
 											$buy_hostname = wp_parse_url($buy_url, PHP_URL_HOST); 
-											$buy_hostname = $buy_hostname['host'];
 											$buy_sitename = str_replace("www.", "", $buy_hostname); 
 
 											if (get_field('tickets_action_verb')) {
