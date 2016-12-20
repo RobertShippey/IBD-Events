@@ -1,6 +1,8 @@
 <?php 
 
-// Remove Dashboard Clutter
+/** 
+ * Remove Dashboard Clutter
+ */
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
 function remove_dashboard_widgets() {
   global $wp_meta_boxes;
@@ -16,46 +18,47 @@ function remove_dashboard_widgets() {
   unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);    
 }
 
-
+/** 
+ * Add forecast api and uptime robot widgets
+ */
 add_action('wp_dashboard_setup', 'ibde_dashboard_widgets');
 function ibde_dashboard_widgets() {
 
   $user = wp_get_current_user();
   if ( in_array( 'administrator', (array) $user->roles ) ) {
-    
    global $wp_meta_boxes;
 
    add_meta_box('ibde_forecast_widget', 'Forecast API', 'ibde_forecast_widget', 'dashboard', 'side', 'high');
    add_meta_box('ibde_uptime_widget', 'Uptime Robot', 'ibde_uptimerobot_widget', 'dashboard', 'side', 'high');
  }
-
- 
 }
-function ibde_forecast_widget() {
-  $API_Calls = get_transient( 'forecast_API_calls' );
 
-  if (! $API_Calls) {
+/** 
+ * Render forecast.io widget
+ */
+function ibde_forecast_widget() {
+  $api_calls = get_transient( 'forecast_API_calls' );
+
+  if (! $api_calls) {
     echo '<p>Couldn\'t load API data... </p>';
   }
 
-  $value = $API_Calls['calls'];
-  $last_updated = $API_Calls['last_updated'];
+  $value = $api_calls['calls'];
+  $last_updated = $api_calls['last_updated'];
 
-  $doubleValue = (double)$value;
-  $percent = ($doubleValue / 1000.00) * 100.00;
+  $double_value = (double) $value;
+  $percent = ($double_value / 1000.00) * 100.00;
 
   echo "<p>Used {$value} of 1000 free calls. Last fetched: {$last_updated}.</p>";
-
   echo '<img src="//chart.googleapis.com/chart?cht=gom&chs=600x300&chd=t:' . $percent . '&chco=5cb85c,72C25E,88CB5F,F0F965,f0ad4e,d9534f" style="width:100%">';
-
   echo '<a target="_blank" class="button button-secondary button-small" href="https://developer.forecast.io/">See more</a>';
   
   echo '<hr>';
-  $Cron = get_transient('weather_cron_data');
-  $cr_run = $Cron['last_run'];
+  $cron = get_transient('weather_cron_data');
+  $cr_run = $cron['last_run'];
 
   global $wpdb;
-  $numberOfExpired = $wpdb->get_var( $wpdb->prepare( 
+  $number_of_expired = $wpdb->get_var( $wpdb->prepare( 
     "
     SELECT count(*)
     FROM wp_postmeta 
@@ -70,10 +73,13 @@ function ibde_forecast_widget() {
     "
     ));
   
-  echo "<p>Cron last run: {$cr_run}. {$numberOfExpired} expired weather records.</p>";
+  echo "<p>Cron last run: {$cr_run}. {$number_of_expired} expired weather records.</p>";
 
 }
 
+/** 
+ * Render uptime robot widget
+ */
 function ibde_uptimerobot_widget() {
 
   global $_KEYS;
@@ -93,7 +99,6 @@ function ibde_uptimerobot_widget() {
   <div id="uptime-images"></div>
 
   <script> 
-
    function jsonUptimeRobotApi (data) {
 
     var monitor = data.monitors.monitor[0];
@@ -108,7 +113,6 @@ function ibde_uptimerobot_widget() {
       }
 
       var data = google.visualization.arrayToDataTable(api_data);
-
       var options = google.charts.Line.convertOptions({
        height: 400, 
        curveType: 'function',
@@ -129,11 +133,8 @@ function ibde_uptimerobot_widget() {
      });
 
      var chart = new google.charts.Line(document.getElementById('curve_chart'));
-
      chart.draw(data, options);
-
    }
-   
  }
 </script>
 
