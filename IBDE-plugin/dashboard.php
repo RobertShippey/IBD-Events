@@ -137,7 +137,7 @@ function ibde_uptimerobot_widget() {
  }
 </script>
 
-<script src="https://api.uptimerobot.com/getMonitors?apiKey=<?php echo $api_key; ?>&responseTimes=1&responseTimesAverage=15&customUptimeRatio=1-7-30-365&format=json" async></script> 
+<script src="https://api.uptimerobot.com/getMonitors?apiKey=<?php echo $api_key; ?>&responseTimes=1&responseTimesAverage=30&customUptimeRatio=1-7-30-365&format=json" async></script> 
 <?php
 
 }
