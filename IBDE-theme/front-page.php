@@ -108,12 +108,12 @@ function display_event() { ?>
 				<div class="primary col-sm-12">
 
 					<?php 
-
-					$GeoIPTransient = 'geoip_' . $_SERVER['REMOTE_ADDR'];
+					$ip_address = WC_Geolocation::get_ip_address();
+					$GeoIPTransient = 'geoip_' . $ip_address;
 
 					if ( false === ( $short_country_name = get_transient( $GeoIPTransient ) ) ) {
   // It wasn't there, so regenerate the data and save the transient
-						$url = "http://ip-api.com/json/" . $_SERVER['REMOTE_ADDR'] . "?fields=country,status";
+						$url = "http://ip-api.com/json/" . $ip_address . "?fields=country,status";
 						$theBody = wp_remote_retrieve_body( wp_remote_get($url) );
 						$values = json_decode($theBody);
 						$short_country_name = $values->country;
