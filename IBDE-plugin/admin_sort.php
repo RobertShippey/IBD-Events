@@ -39,9 +39,10 @@ function ibde_populating_my_event_columns( $column_name, $post_id ) {
   $start_date_tz_string = get_post_meta( $post_id, 'timezone', true );
   $output_tz_obj = new DateTimeZone($start_date_tz_string);
 
-  $start_date_obj->setTimezone( $output_tz_obj );
-
-  echo $start_date_obj->format('Y-m-d H:i');
+  if ( $start_date_obj && $output_tz_obj ) {
+      $start_date_obj->setTimezone( $output_tz_obj );
+      echo $start_date_obj->format('Y-m-d H:i');
+  }
 
   break;
 }
