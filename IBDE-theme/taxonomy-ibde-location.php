@@ -37,7 +37,7 @@
 			<p>If you know if any, please <a href="/submission">let us know</a>.</p>
 
 			<?php
-			$args = array (
+			$args = array(
 				'post_type'              => 'ibde-event',
 				'posts_per_page'         => '4',
 				'no_found_rows'			=> true,
@@ -50,9 +50,7 @@
 				echo '<h3>Upcoming Events Around the World</h3>';
 				echo '<div class="row">';
 				while ( $query->have_posts() ) {
-					$query->the_post();
-
-					$eventID = get_the_ID(); ?>
+					$query->the_post(); ?>
 					<div class="col-xs-12 col-sm-4 col-md-3 eq space-below" style="height: 200px;">
 						<div class="featured-event-block">
 							<div class="row">
@@ -64,7 +62,7 @@
 
 								<div class="col-xs-12">
 									<a href="<?php the_permalink();?>">
-										<?php the_post_thumbnail('SmallSquare', array ('class' => 'pull-right featured-event-image')) ;?>
+										<?php the_post_thumbnail('SmallSquare', array( 'class' => 'pull-right featured-event-image' )) ;?>
 									</a>
 								<?php else : ?>
 
@@ -82,7 +80,10 @@
 										<?php } ?>
 
 										<?php 
-										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array ('orderby' => 'term_group', 'order' => 'ASC', 'fields' => 'all'));
+										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array( 'orderby' => 'term_group', 
+											'order' => 'ASC', 
+											'fields' => 'all',
+											));
 
 										if ( ! empty( $terms ) ) {
 											if ( ! is_wp_error( $terms ) ) {
@@ -148,14 +149,17 @@
 							</div>
 
 							<div class="col-xs-4 col-sm-3 col-sm-offset-1">
-								<a href="<?php the_permalink();?>"><?php the_post_thumbnail('SmallSquare', array ('class' => 'img-responsive')) ;?></a>
+								<a href="<?php the_permalink();?>"><?php the_post_thumbnail('SmallSquare', array( 'class' => 'img-responsive' ));?></a>
 							</div>
 						<?php else : ?>
 
 							<div class="col-xs-12 col-sm-8">
 								<h2 class="flushtop"><a href="<?php the_permalink();?>"><?php the_title();?></a></h2>
 								<p class="h3 flushtop"><?php echo $event->formatted_start_date('jS F'); ?></p>
-								<p><?php $location = get_field('location'); if($location) { echo $location['address']; }?></p>
+								<p><?php $location = get_field('location'); 
+								if ( $location ) { 
+									echo $location['address']; 
+								} ?></p>
 								<?php the_excerpt(); ?>
 							</div>
 
@@ -169,7 +173,7 @@
 			</div>
 
 					<?php $location = get_field('location'); 
-					if($location) { 
+					if ( $location ) { 
 
 						$lat = (double) $location["lat"];
 						$lng = (double) $location["lng"];
@@ -217,17 +221,17 @@
 					$content = sprintf('<a href="%s">%s</a>', $pin['link'], $pin['title']);
 					?> 
 
-					var latLgn = <?php echo json_encode($pin['pos']); ?>;
+					var latLgn = <?php echo wp_json_encode($pin['pos']); ?>;
 					//markerBounds.extend(latLgn);
 
 					var marker = new google.maps.Marker({
 						position: latLgn,
 						map: map,
-						title: <?php echo json_encode($pin['title']); ?>
+						title: <?php echo wp_json_encode($pin['title']); ?>
 					});
 
 					marker.info = new google.maps.InfoWindow({
-						content: <?php echo json_encode($content); ?>
+						content: <?php echo wp_json_encode($content); ?>
 					});
 
 

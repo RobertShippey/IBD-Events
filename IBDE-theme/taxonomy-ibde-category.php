@@ -24,7 +24,10 @@
 					<div class="col-xs-8 col-sm-8">
 						<h2 class="flushtop"><a href="<?php the_permalink();?>"><?php the_title();?></a></h2>
 						<p class="h3 flushtop"><?php echo $event->formatted_start_date('jS F'); ?></p>
-						<p><?php $location = get_field('location'); if($location) { echo $location['address']; }?></p>
+						<p><?php $location = get_field('location'); 
+						if ( $location ) { 
+							echo $location['address']; 
+						} ?></p>
 						<?php the_excerpt(); ?>
 					</div>
 
@@ -74,7 +77,7 @@
 			<p>If you know if any, please <a href="/submission">let us know</a>.</p>
 
 			<?php
-			$args = array (
+			$args = array(
 				'post_type'              => 'ibde-event',
 				'posts_per_page'         => '3',
 				'no_found_rows'			=> true,
@@ -99,7 +102,7 @@
 
 								<div class="col-xs-12">
 									<a href="<?php the_permalink();?>">
-										<?php the_post_thumbnail('SmallSquare', array ('class' => 'pull-right featured-event-image')) ;?>
+										<?php the_post_thumbnail('SmallSquare', array( 'class' => 'pull-right featured-event-image' )) ;?>
 									</a>
 								<?php else : ?>
 
@@ -117,7 +120,10 @@
 										<?php } ?>
 
 										<?php 
-										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array ('orderby' => 'term_group', 'order' => 'ASC', 'fields' => 'all'));
+										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array( 'orderby' => 'term_group', 
+											'order' => 'ASC', 
+											'fields' => 'all',
+											));
 
 										if ( ! empty( $terms ) ) {
 											if ( ! is_wp_error( $terms ) ) {
@@ -149,7 +155,7 @@
 		<?php 
 		$taxonomy_name = 'ibde-category';
 
-		$args = array (
+		$args = array(
 			'taxonomy' => $taxonomy_name,
 			'hide_empty' => 1,
 			'hierarchical' => true,
