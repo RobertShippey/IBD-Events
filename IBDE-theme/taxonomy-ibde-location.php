@@ -19,7 +19,7 @@
 				'depth'  => 1,
 				'orderby' => 'count',
 				'order' => 'desc',
-				'number' => 10
+				'number' => 10,
 				);
 			$cats = get_categories( $args );
 
@@ -29,7 +29,7 @@
 				. $place->name
 				. '</a> ';
 			}
-			echo "</p>";
+			echo '</p>';
 
 		} else { ?>
 			<h2>No Events Found</h2>
@@ -40,7 +40,7 @@
 			$args = array (
 				'post_type'              => 'ibde-event',
 				'posts_per_page'         => '4',
-				'no_found_rows'			=> true
+				'no_found_rows'			=> true,
 				);
 			$query = new WP_Query( $args );
 
@@ -60,11 +60,11 @@
 								<div class="col-xs-12">
 									<h4 class="flushtop"><a href="<?php the_permalink();?>"><?php the_title();?></a></h4>
 								</div>
-								<?php if ( '' != get_the_post_thumbnail() ) : ?>
+								<?php if ( '' !== get_the_post_thumbnail() ) : ?>
 
 								<div class="col-xs-12">
 									<a href="<?php the_permalink();?>">
-										<?php the_post_thumbnail('SmallSquare', array('class' => 'pull-right featured-event-image')) ;?>
+										<?php the_post_thumbnail('SmallSquare', array ('class' => 'pull-right featured-event-image')) ;?>
 									</a>
 								<?php else : ?>
 
@@ -76,13 +76,13 @@
 
 								<p>
 									<?php $venue = get_field('venue'); 
-									if($venue) { ?>
+									if ( $venue ) { ?>
 										<strong><?php echo $venue; ?></strong>
 										<br>
 										<?php } ?>
 
 										<?php 
-										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array('orderby' => 'term_group', 'order' => 'ASC', 'fields' => 'all'));
+										$terms = wp_get_object_terms(get_the_ID(), 'ibde-location', array ('orderby' => 'term_group', 'order' => 'ASC', 'fields' => 'all'));
 
 										if ( ! empty( $terms ) ) {
 											if ( ! is_wp_error( $terms ) ) {
@@ -135,17 +135,20 @@
 					<div class="row hr">	
 						<!-- =============================================== -->
 
-						<?php if ( '' != get_the_post_thumbnail() ) : ?>
+						<?php if ( '' !== get_the_post_thumbnail() ) : ?>
 
 							<div class="col-xs-8 col-sm-8">
 								<h2 class="flushtop"><a href="<?php the_permalink();?>"><?php the_title();?></a></h2>
 								<p class="h3 flushtop"><?php echo $event->formatted_start_date('jS F'); ?></p>
-								<p><?php $location = get_field('location'); if($location) { echo $location['address']; }?></p>
+								<p><?php $location = get_field('location'); 
+								if ( $location ) { 
+									echo $location['address']; 
+									} ?></p>
 								<?php the_excerpt(); ?>
 							</div>
 
 							<div class="col-xs-4 col-sm-3 col-sm-offset-1">
-								<a href="<?php the_permalink();?>"><?php the_post_thumbnail('SmallSquare', array('class' => 'img-responsive')) ;?></a>
+								<a href="<?php the_permalink();?>"><?php the_post_thumbnail('SmallSquare', array ('class' => 'img-responsive')) ;?></a>
 							</div>
 						<?php else : ?>
 
@@ -157,80 +160,30 @@
 							</div>
 
 						<?php endif; ?>
-
-
-<?php 
-					$schema = array();
-					$schema['@context'] = "http://schema.org";
-					$schema['@type'] = "Event";
-					$schema['name'] = get_the_title();
-
-					$locationSchema = array();
-					$locationSchema['@type'] = "Place";
-					@$locationSchema['address'] = array(
-						"@type"=> "PostalAddress", 
-						"name"=> $location['address'], 
-						"addressCountry"=> $country_code);
-					$locationSchema['geo'] = array(
-						"@type"=>"GeoCoordinates", 
-						"latitude"=>$location["lat"], 
-						"longitude"=>$location["lng"]);
-					$locationSchema['name'] = get_field('venue');
-					$schema['location'] = $locationSchema;
-
-					$schema['url'] = get_permalink();
-					$schema['startDate'] = $event->formatted_start_date('Y-m-d\TH:i:s');
-					$schema['endDate'] = $event->formatted_end_date('Y-m-d\TH:i:s');
-					$schema['sameAs'] = array(get_permalink(), get_field('external_link'));
-
-								$schema['image'] = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
-				$schema['image'] = $schema['image'][0];
-
-				$schema['offers']['@type'] = "Offer";
-				if (get_field('buy_tickets')) {
-					$schema['offers']['url'] = get_field('buy_tickets');
-				} else {
-					$schema['offers']['url'] = get_field('external_link');
-				}
-				$schema['offers']['sameAs'] = $schema['offers']['url'];
-
-				if (get_field('base_price_currency')) {
-					$schema['offers']['priceCurrency'] = get_field('base_price_currency');
-				}
-				if (get_field('base_price_amount')) {
-					$schema['offers']['@type'] = "AggregateOffer";
-					$schema['offers']['lowPrice'] = get_field('base_price_amount');
-				}
-
-				$content = apply_filters( 'the_content', get_the_content() );
-				$content = str_replace( ']]>', ']]&gt;', $content );
-				$content = strip_tags($content);
-				$content = trim($content);
-
-				$schema['description'] = $content;
-?>
-						<script type="application/ld+json">
-							<?php echo json_encode($schema, JSON_PRETTY_PRINT); ?>
-						</script>
-
-					</div>
+				<script type="application/ld+json">
+					<?php 
+					$schema = ibde_generate_jsonld();
+					echo wp_json_encode($schema, JSON_PRETTY_PRINT);
+					?>
+				</script>
+			</div>
 
 					<?php $location = get_field('location'); 
 					if($location) { 
 
-						$lat = (double)$location["lat"];
-						$lng = (double)$location["lng"];
+						$lat = (double) $location["lat"];
+						$lng = (double) $location["lng"];
 
 						$pos = array( 
 							'lat' => $lat, 
-							'lng' => $lng
+							'lng' => $lng,
 							);
 
 
 						$pins[] = array(
 							'pos' => $pos,
 							'title' => get_the_title(),
-							'link' => get_permalink()
+							'link' => get_permalink(),
 							);
 						} ?>
 

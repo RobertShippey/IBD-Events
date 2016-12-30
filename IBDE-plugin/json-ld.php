@@ -31,8 +31,6 @@ function ibde_generate_jsonld () {
 		);
 	$location_schema['name'] = get_field('venue');
 	$schema['location'] = $location_schema;
-
-	$schema['url'] = get_permalink();
 	
 	$start_date = ibde_get_start_date();
 	$schema['startDate'] = $start_date->format('Y-m-d\TH:i:s');
