@@ -72,12 +72,12 @@ function ibde_generate_jsonld () {
 	$no_of_performers = $post_meta['performers_repeater'][0];
 	$performers = array();
 
-	for ($i=0; $i < $no_of_performers; $i++) { 
+	for ($i = 0; $i < $no_of_performers; $i++) { 
 		$performer = array(
 			'@type' => 'Person',
-			'name' => $post_meta["performers_repeater_{$i}_performer_name"][0],
-			'sameAs' => $post_meta["performers_repeater_{$i}_performer_website"][0],
-			'url' => $post_meta["performers_repeater_{$i}_performer_website"][0]
+			'name' => $post_meta[ "performers_repeater_{$i}_performer_name" ][0],
+			'sameAs' => $post_meta[ "performers_repeater_{$i}_performer_website" ][0],
+			'url' => $post_meta[ "performers_repeater_{$i}_performer_website" ][0],
 			);
 		$performers[] = $performer;
 	}
