@@ -6,9 +6,8 @@
 /**
  * Takes an angle in degrees and returns text descriptions of that angle.
  *
- *
- * @param float $angle The angle to be described in degrees (may be positive or negative)
- * @param int $division Optional. Tumber of cardinal points to be used. Default = 8.
+ * @param float   $angle The angle to be described in degrees (may be positive or negative).
+ * @param int   $division Optional. Tumber of cardinal points to be used. Default = 8.
  * @return array Assoc. array containing short and full cardinal directions for the angle.
  */
 function cardinal_direction($angle, $division = 8) {
@@ -66,10 +65,11 @@ function cardinal_direction($angle, $division = 8) {
         $resolved_angle = 0;
     }
 
-    $dir = $directions[$resolved_angle];
+    $dir = $directions[ $resolved_angle ];
 
-    return array( 'resolved_angle' => $resolved_angle, 
+    return array( 
+        'resolved_angle' => $resolved_angle, 
         'short_name' => $dir['short'], 
-        'full_name' => $dir['full']
+        'full_name' => $dir['full'],
         );
 }
