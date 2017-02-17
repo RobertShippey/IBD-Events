@@ -1,4 +1,7 @@
 <?php 
+/**
+ * WordPress Dashboard Configurations
+ */
 
 /** 
  * Remove Dashboard Clutter
@@ -26,7 +29,6 @@ function ibde_dashboard_widgets() {
 
   $user = wp_get_current_user();
   if ( in_array( 'administrator', (array) $user->roles ) ) {
-   global $wp_meta_boxes;
 
    add_meta_box('ibde_forecast_widget', 'Forecast API', 'ibde_forecast_widget', 'dashboard', 'side', 'high');
    add_meta_box('ibde_uptime_widget', 'Uptime Robot', 'ibde_uptimerobot_widget', 'dashboard', 'side', 'high');
@@ -39,7 +41,7 @@ function ibde_dashboard_widgets() {
 function ibde_forecast_widget() {
   $api_calls = get_transient( 'forecast_API_calls' );
 
-  if (! $api_calls) {
+  if ( ! $api_calls ) {
     echo '<p>Couldn\'t load API data... </p>';
   }
 

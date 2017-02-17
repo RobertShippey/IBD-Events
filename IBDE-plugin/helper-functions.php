@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Misc Helper Functions
+ */
 
 /** Takes an angle in degrees and returns a text description of that angle
  Parameters:
@@ -14,7 +17,7 @@
  Check division is one of the acceptable angles.  */
 function cardinal_direction($angle, $division = 8) {
 
-        if ($division == !in_array($division, array('2', '4', '8', '16', '32'))) {
+        if ($division == ! in_array($division, array( '2', '4', '8', '16', '32' ))) {
           return false;
         }
 
@@ -95,7 +98,6 @@ function cardinal_direction($angle, $division = 8) {
           $angle = 360 + $angle; // Addition beacause angle is negative
         }
 
-
 // Work out how big each segment is in degrees (e.g NSEW is 90deg segments)
         $segment_size = 360 / $division;
 
@@ -105,5 +107,8 @@ function cardinal_direction($angle, $division = 8) {
           $resolved_angle = 0; // 0 will resolve to 360 so set it back to 0
         };
 
-        return array('resolved_angle' => $resolved_angle, 'short_name' => $short_name[$resolved_angle], 'full_name' => $full_name[$resolved_angle]);
+        return array( 'resolved_angle' => $resolved_angle, 
+            'short_name' => $short_name[$resolved_angle], 
+            'full_name' => $full_name[$resolved_angle]
+            );
       }
