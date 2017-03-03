@@ -1,3 +1,0 @@
-[submodule "IBDE-plugin/stripe-api"]
-	path = IBDE-plugin/stripe-api
-	url = git@github.com:stripe/stripe-php.git
