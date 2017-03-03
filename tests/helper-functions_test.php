@@ -1,5 +1,6 @@
 <?php
 
+require_once('IBDE-plugin/helper-functions.php');
 
 use PHPUnit\Framework\TestCase;
 

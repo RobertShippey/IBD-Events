@@ -1,0 +1,10 @@
+<phpunit backupGlobals="true" verbose="true">
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">IBDE-plugin/</directory>
+		</whitelist>
+	</filter>
+	<testsuite>
+		<directory suffix="_test.php">tests/</directory>
+	</testsuite>
+</phpunit>
