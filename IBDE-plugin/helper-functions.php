@@ -12,7 +12,8 @@
  */
 function cardinal_direction($angle, $division = 8) {
 
-    if ($division == ! in_array($division, array( '2', '4', '8', '16', '32' ))) {
+    if ($division == ! in_array($division, array( '2', '4', '8', '16', '32' )) 
+        || ! is_numeric($angle)) {
         return false;
     }
 
