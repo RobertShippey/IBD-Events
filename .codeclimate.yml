@@ -4,10 +4,7 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
       - php
-  eslint:
-    enabled: true
   fixme:
     enabled: true
   phpmd:
@@ -80,14 +77,12 @@ engines:
         enabled: false
 ratings:
   paths:
-  - "**.sass"
-  - "**.js"
   - "**.php"
 exclude_paths: 
   - "IBDE-plugin/plugin-activation/"
   - "IBDE-theme/bower_components/"
   - "IBDE-theme/config.rb"
-  - "**.min.js"
+  - "**.js"
   - "**.png"
   - "**.css"
   - "tests/"
