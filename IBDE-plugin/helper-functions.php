@@ -74,3 +74,16 @@ function cardinal_direction($angle, $division = 8) {
         'full_name' => $dir['full'],
         );
 }
+
+
+/**
+ * Does the haystack string start with the needle string?
+ *
+ * @param string $haystack String to search.
+ * @param string $needle Possible starting string.
+ * @return bool .
+ */
+function ibde_starts_with($haystack, $needle) {
+    // search backwards starting from haystack length characters from the end
+    return "" === $needle || false !== strrpos($haystack, $needle, -strlen($haystack));
+}

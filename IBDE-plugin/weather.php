@@ -163,10 +163,3 @@ function handle_header_line( $curl, $header_line ) {
 	}
 	return strlen($header_line);
 }
-
-
-/** helper function */
-function ibde_starts_with($haystack, $needle) {
-    // search backwards starting from haystack length characters from the end
-	return "" === $needle || false !== strrpos($haystack, $needle, -strlen($haystack));
-}

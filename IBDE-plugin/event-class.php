@@ -1,7 +1,14 @@
 <?php
+/**
+ * Base event class
+ */
 
-class IBDEvent
-{
+/**
+ * IBDEvent class.
+ *
+ * @deprecated 
+ */
+class IBDEvent {
 
   private $post_id;
   private $start_date;
@@ -12,11 +19,11 @@ class IBDEvent
    $this->post_id = $post_id;
 
    $this->start_date = new DateTime();
-   $this->start_date->setTimestamp((int)get_field('start_date', $this->post_id));
+   $this->start_date->setTimestamp( (int) get_field('start_date', $this->post_id));
 
    if (get_field('end_date')) {
      $this->end_date = new DateTime();
-     $this->end_date->setTimestamp((int)get_field('end_date', $this->post_id));
+     $this->end_date->setTimestamp( (int) get_field('end_date', $this->post_id));
    } else {
     $this->end_date = null;
   }
@@ -25,12 +32,23 @@ class IBDEvent
 
 }
 
-
+/**
+ * Formatted start date.
+ * @deprecated 1.0.0 ibde_get_start_date()
+ *
+ * @return string start date.
+ */
 public function formatted_start_date($format) {
   $start_date = ibde_get_start_date();
   return $start_date->format($format);
 }
 
+/**
+ * Formatted end date.
+ * @deprecated 1.0.0 ibde_get_end_date()
+ *
+ * @return string end date.
+ */
 public function formatted_end_date($format) {
 
   if ( get_field('end_date' )) { 
@@ -63,10 +81,25 @@ public function formatted_end_date_or_default($format) {
  return $end_date_formatted;
 }
 
+/**
+ * Return event coords.
+ * @deprecated 
+ *
+ * @return array coords.
+ */
 public function coords () {
-  return array('lat' => $this->location['lat'], 'lng' => $this->location['lng']);
+  return array(
+    'lat' => $this->location['lat'], 
+    'lng' => $this->location['lng'],
+    );
 }
 
+/**
+ * Check if event has weather.
+ * @deprecated 
+ *
+ * @return bool true if has location.
+ */
 public function has_weather () {
   // if has location, date and time, and is not online then true
   if ( $this->location ) {

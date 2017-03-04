@@ -39,3 +39,20 @@ final class cardinal_direction_test extends \PHPUnit_Framework_TestCase
         $this->assertFalse(cardinal_direction([1,2,3], [1,2,3]));
     }
 }
+
+/**
+ * @covers ::ibde_starts_with
+ */
+final class ibde_starts_with_test extends \PHPUnit_Framework_TestCase
+{
+    public function test_ibde_starts_with_is_working()
+    {
+        $this->assertTrue(ibde_starts_with('',''));
+        $this->assertTrue(ibde_starts_with('Hello World!','Hell'));
+        $this->assertTrue(ibde_starts_with('IBD Events','IBD E'));
+
+        $this->assertFalse(ibde_starts_with('',' '));
+        $this->assertFalse(ibde_starts_with('Hello World!','World'));
+        $this->assertFalse(ibde_starts_with('IBD Events','s'));
+    }
+}
