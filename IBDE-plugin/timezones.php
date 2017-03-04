@@ -1,6 +1,6 @@
 <?php 
 /**
- * reading and writing event start/end dates to db with TZ conversion
+ * Reading and writing event start/end dates to db with TZ conversion
  */
 
 /**
@@ -40,9 +40,9 @@ function ibde_get_start_date () {
 }
 
 /**
- * save start date.
+ * Save start date.
  *
- * takes the start date stored in local time and saves UTC version to database.
+ * Takes the start date stored in local time and saves UTC version to database.
  *
  * @param int $post_id the post to update.
  */
@@ -87,9 +87,9 @@ function ibde_get_end_date () {
 }
 
 /**
- * save end date.
+ * Save end date.
  *
- * takes the end date stored in local time and saves UTC version to database.
+ * Takes the end date stored in local time and saves UTC version to database.
  *
  * @param int $post_id the post to update.
  */
