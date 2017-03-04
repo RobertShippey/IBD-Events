@@ -2,12 +2,10 @@
 
 require_once('IBDE-plugin/helper-functions.php');
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * @covers cardinal_direction
  */
-final class cardinal_direction_test extends TestCase
+final class cardinal_direction_test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider additionProvider
