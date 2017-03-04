@@ -3,7 +3,7 @@
 require_once('IBDE-plugin/helper-functions.php');
 
 /**
- * @covers cardinal_direction
+ * @covers ::cardinal_direction
  */
 final class cardinal_direction_test extends \PHPUnit_Framework_TestCase
 {
